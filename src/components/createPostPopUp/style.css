@@ -438,6 +438,27 @@ img:nth-child(2) {
   grid-column: 1/2;
 }
 
+.post_background_picker {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.post_background_picker img {
+  height: 35px;
+  width: 35px;
+  border-radius: 10px;
+}
+
+.no_backgrounds {
+  background: var(--bg-secondary);
+  height: 35px;
+  width: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+
 @keyframes fade-in {
   from {
     opacity: 0;

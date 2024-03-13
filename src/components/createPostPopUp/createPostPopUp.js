@@ -38,7 +38,7 @@ const CreatePostPopUp = ({ user }) => {
             <div className="middle_post">
               <textarea
                 ref={textRef}
-                maxLength="100"
+                maxLength="250"
                 value={text}
                 className="post_input"
                 onChange={(e) => {
@@ -58,7 +58,7 @@ const CreatePostPopUp = ({ user }) => {
             <div className="middle_post_s">
               <textarea
                 ref={textRef}
-                maxLength="100"
+                maxLength="250"
                 value={text}
                 className="post_input"
                 onChange={(e) => {

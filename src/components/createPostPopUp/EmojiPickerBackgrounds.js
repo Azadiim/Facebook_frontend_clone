@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
 
 const EmojiPickerBackgrounds = ({
@@ -11,7 +11,7 @@ const EmojiPickerBackgrounds = ({
 }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
-  const [showbg, setShowBg] = useState(true);
+  const [showBg, setShowBg] = useState(false);
 
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
@@ -24,6 +24,10 @@ const EmojiPickerBackgrounds = ({
     const newText = start + emoji + end;
     setText(newText);
     setCursorPosition(start.length + emoji.length);
+  };
+  const handleBg = (i) => {
+    textRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
+    setBackground(postBackgrounds[i]);
   };
 
   const postBackgrounds = [
@@ -45,14 +49,28 @@ const EmojiPickerBackgrounds = ({
           <Picker onEmojiClick={handleEmoji} />
         </div>
       )}
-      {!showPrev && <img src="./icons/colorful.png"></img>}
-      <div className="post_background_picker">
-        <div className="no_backgrounds"></div>
-        {postBackgrounds.map((bg, i) => (
-          <img src={bg} key={i} />
-        ))}
-      </div>
-     
+      {!showPrev && (
+        <img
+          src="./icons/colorful.png"
+          onClick={() => {
+            setShowBg((prev) => !prev);
+          }}
+        />
+      )}
+      {showBg && (
+        <div className="post_background_picker">
+          <div className="no_backgrounds"></div>
+          {postBackgrounds.map((bg, i) => (
+            <img
+              src={bg}
+              key={i}
+              onClick={() => {
+                handleBg(i);
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <i
         className={
