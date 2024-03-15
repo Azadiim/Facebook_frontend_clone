@@ -9,6 +9,7 @@ const CreatePostPopUp = ({ user }) => {
   const textRef = useRef(null);
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
+
   return (
     <div className="blur">
       <div className="create_post_box">
@@ -35,7 +36,9 @@ const CreatePostPopUp = ({ user }) => {
         </div>
         {!showPrev ? (
           <>
-            <div className="middle_post">
+            <div
+              className={!background ? "middle_post" : "middle_post bgHandler"}
+            >
               <textarea
                 ref={textRef}
                 maxLength="250"
@@ -51,6 +54,8 @@ const CreatePostPopUp = ({ user }) => {
               textRef={textRef}
               text={text}
               setText={setText}
+              background={background}
+              setBackground={setBackground}
             />
           </>
         ) : (
@@ -74,6 +79,7 @@ const CreatePostPopUp = ({ user }) => {
               showPrev={showPrev}
               background={background}
               setBackground={setBackground}
+              handlebackground={(background) => setBackground(background)}
             />
             <AddImages
               images={images}

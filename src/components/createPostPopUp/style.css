@@ -456,8 +456,9 @@ img:nth-child(2) {
   border-radius: 10px;
   cursor: pointer;
 }
-
-
+.bgHandler {
+  height: 360px;
+}
 
 @keyframes fade-in {
   from {

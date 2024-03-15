@@ -8,6 +8,7 @@ const EmojiPickerBackgrounds = ({
   showPrev,
   background,
   setBackground,
+  handlebackground,
 }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
