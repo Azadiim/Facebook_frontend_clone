@@ -7,8 +7,10 @@ const CreatePostPopUp = ({ user }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const textRef = useRef(null);
+  const bgRef = useRef(null);
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
+  console.log(background);
 
   return (
     <div className="blur">
@@ -40,6 +42,13 @@ const CreatePostPopUp = ({ user }) => {
               className={!background ? "middle_post" : "middle_post bgHandler"}
             >
               <textarea
+                style={{
+                  paddingTop: `${
+                    background
+                      ? Math.abs(textRef.current.value.length *.1 - 30)
+                      : "0"
+                  }%`,
+                }}
                 ref={textRef}
                 maxLength="250"
                 value={text}

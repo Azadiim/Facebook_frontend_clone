@@ -456,8 +456,11 @@ img:nth-child(2) {
   border-radius: 10px;
   cursor: pointer;
 }
-.bgHandler {
+.bgHandler textarea {
   height: 360px;
+  width: 100%;
+  background-size: cover;
+  text-align: center;
 }
 
 @keyframes fade-in {

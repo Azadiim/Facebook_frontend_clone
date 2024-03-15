@@ -27,8 +27,12 @@ const EmojiPickerBackgrounds = ({
     setCursorPosition(start.length + emoji.length);
   };
   const handleBg = (i) => {
-    textRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
     setBackground(postBackgrounds[i]);
+    textRef.current.style.backgroundImage = `url(${postBackgrounds[i]})`;
+  };
+  const handleNoBg = () => {
+    textRef.current.style.backgroundImage = "";
+    setBackground("");
   };
 
   const postBackgrounds = [
@@ -60,7 +64,7 @@ const EmojiPickerBackgrounds = ({
       )}
       {showBg && (
         <div className="post_background_picker">
-          <div className="no_backgrounds"></div>
+          <div className="no_backgrounds" onClick={handleNoBg}></div>
           {postBackgrounds.map((bg, i) => (
             <img
               src={bg}
