@@ -2,7 +2,7 @@ import "./style.css";
 import "./../../../src/svg";
 import { Feeling, LiveVideo, Photo } from "./../../../src/svg";
 
-const CreatePost = ({ user }) => {
+const CreatePost = ({ user, setPostVisible }) => {
   return (
     <div className="create_post">
       <div className="header_post">
@@ -10,7 +10,12 @@ const CreatePost = ({ user }) => {
           {/* <img src="./../../../public/stories/profile2.jpg" /> */}
           <img src={require("./../../postBackgrounds/azad.jpg")} />
         </div>
-        <div className="header_text ">
+        <div
+          className="header_text "
+          onClick={() => {
+            setPostVisible(true);
+          }}
+        >
           Whats on your mind, {user.first_name}
         </div>
       </div>

@@ -3,21 +3,51 @@ import { useState, useRef } from "react";
 import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
 import AddToYourPost from "./AddToYourPost";
 import AddImages from "./AddImages";
-const CreatePostPopUp = ({ user }) => {
+import useClickOutSide from "../../helpers/clickOutSide";
+import PulseLoader from "react-spinners/PulseLoader";
+import { createPost } from "../../functions/post";
+const CreatePostPopUp = ({ user, setPostVisible }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
+  const [loading, setLoading] = useState(false);
   const textRef = useRef(null);
   const bgRef = useRef(null);
+  const postRef = useRef(null);
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
-  console.log(background);
+  useClickOutSide(postRef, () => {
+    setPostVisible(false);
+  });
+
+  const handlePost = async () => {
+    if (background) {
+      setLoading(true);
+      const res = await createPost(
+        null,
+        background,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      setBackground("");
+      setText("");
+      setPostVisible(false);
+    }
+  };
 
   return (
     <div className="blur">
-      <div className="create_post_box">
+      <div className="create_post_box" ref={postRef}>
         <div className="create_post_box_header">
           <span className="header_span">Create Post</span>
-          <div className="small_circle">
+          <div
+            className="small_circle"
+            onClick={() => {
+              setPostVisible(false);
+            }}
+          >
             <i className="exit_icon"></i>
           </div>
         </div>
@@ -45,7 +75,7 @@ const CreatePostPopUp = ({ user }) => {
                 style={{
                   paddingTop: `${
                     background
-                      ? Math.abs(textRef.current.value.length *.1 - 30)
+                      ? Math.abs(textRef.current.value.length * 0.1 - 30)
                       : "0"
                   }%`,
                 }}
@@ -98,7 +128,13 @@ const CreatePostPopUp = ({ user }) => {
           </>
         )}
         <AddToYourPost setShowPrev={setShowPrev} />
-        <button className="create_post_popup">Post</button>
+        <button
+          disabled={loading}
+          className="create_post_popup"
+          onClick={() => handlePost()}
+        >
+          {loading ? <PulseLoader size={4} color="#fff" /> : "Post"}
+        </button>
       </div>
     </div>
   );

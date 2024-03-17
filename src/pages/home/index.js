@@ -8,7 +8,7 @@ import Story from "../../components/home/story";
 import CreatePost from "../../components/createPost";
 import "./style.css";
 
-const Home = () => {
+const Home = ({setPostVisible}) => {
   const el = useRef(null);
   const [visible, setVisible] = useState(true);
   const { user } = useSelector((user) => ({ ...user }));
@@ -22,7 +22,7 @@ const Home = () => {
       <LeftHome user={user} />
       <div className="middle_home">
         <Story />
-        <CreatePost user={user} />
+        <CreatePost user={user} setPostVisible={setPostVisible} />
       </div>
       <RightHome user={user} />
     </div>
