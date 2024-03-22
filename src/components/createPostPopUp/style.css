@@ -462,6 +462,23 @@ img:nth-child(2) {
   background-size: cover;
   text-align: center;
 }
+.error_post {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  z-index: 1;
+  opacity: 0.7;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  animation: anim 0.3s;
+  color: #b94a48;
+}
 
 @keyframes fade-in {
   from {
@@ -469,5 +486,13 @@ img:nth-child(2) {
   }
   to {
     opacity: 100;
+  }
+}
+@keyframes anim {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }

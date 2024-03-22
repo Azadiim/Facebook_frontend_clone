@@ -6,10 +6,13 @@ import AddImages from "./AddImages";
 import useClickOutSide from "../../helpers/clickOutSide";
 import PulseLoader from "react-spinners/PulseLoader";
 import { createPost } from "../../functions/post";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
+import { uploadImages } from "../../functions/uploadImages";
 const CreatePostPopUp = ({ user, setPostVisible }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const textRef = useRef(null);
   const bgRef = useRef(null);
   const postRef = useRef(null);
@@ -22,7 +25,7 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
   const handlePost = async () => {
     if (background) {
       setLoading(true);
-      const res = await createPost(
+      const response = await createPost(
         null,
         background,
         text,
@@ -31,8 +34,49 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
         user.token
       );
       setLoading(false);
-      setBackground("");
+      if (response === "ok") {
+        setBackground("");
+        setText("");
+        setPostVisible(false);
+      } else {
+        setError(response);
+      }
+    } else if (images && images.length) {
+      setLoading(true);
+      const postImages = images.map((image) => {
+        return dataURItoBlob(image);
+      });
+      const path = `${user.username}/postImages`;
+      let formData = new FormData();
+      formData.append("path", path);
+      postImages.forEach((image) => {
+        formData.append("file", image);
+      });
+      const response = await uploadImages(formData, path, user.token);
+      await createPost(null, null, text, response, user.id, user.token);
+      setLoading(false);
       setText("");
+      setImages("");
+      setPostVisible(false);
+    } else if (text) {
+      setLoading(true);
+      const response = await createPost(
+        null,
+        null,
+        text,
+        null,
+        user.id,
+        user.token
+      );
+      setLoading(false);
+      if (response === "ok") {
+        setBackground("");
+        setText("");
+        setPostVisible(false);
+      } else {
+        setError(response);
+      }
+    } else {
       setPostVisible(false);
     }
   };
@@ -40,6 +84,19 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
   return (
     <div className="blur">
       <div className="create_post_box" ref={postRef}>
+        {error && (
+          <div className="error_post">
+            {error}
+            <div
+              className="blue_btn"
+              onClick={() => {
+                setError("");
+              }}
+            >
+              Retry
+            </div>
+          </div>
+        )}
         <div className="create_post_box_header">
           <span className="header_span">Create Post</span>
           <div
@@ -131,7 +188,9 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
         <button
           disabled={loading}
           className="create_post_popup"
-          onClick={() => handlePost()}
+          onClick={() => {
+            handlePost();
+          }}
         >
           {loading ? <PulseLoader size={4} color="#fff" /> : "Post"}
         </button>
