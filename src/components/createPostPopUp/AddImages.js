@@ -1,10 +1,27 @@
 import { useRef } from "react";
 
-const AddImages = ({ images, setImages, setShowPrev }) => {
+const AddImages = ({ images, setImages, setShowPrev, setError }) => {
   const imageInputRef = useRef(null);
   const handleImage = (e) => {
     let files = Array.from(e.target.files);
+
     files.forEach((img) => {
+      if (
+        img.type !== "image/jpeg" &&
+        img.type !== "image/png" &&
+        img.type !== "image/webp" &&
+        img.type !== "image/gif"
+      ) {
+        setError(
+          `${img.name} format is not supported. Only webp,jpeg,png,gif images are allowed`
+        );
+        files = files.filter((file) => file.name !== img.name);
+        return;
+      } else if (img.size > 1024 * 1024 * 5) {
+        setError(`Picture size is too large! Max size should less than 5 mb.`);
+        files = files.filter((file) => file.name !== img.name);
+        return;
+      }
       const reader = new FileReader();
       reader.readAsDataURL(img);
       reader.onload = (readerEvent) => {
@@ -18,6 +35,7 @@ const AddImages = ({ images, setImages, setShowPrev }) => {
         <input
           type="file"
           multiple
+          accept="image/jpeg,image/png,image/gif,image/webp"
           hidden
           ref={imageInputRef}
           onChange={handleImage}
@@ -66,7 +84,7 @@ const AddImages = ({ images, setImages, setShowPrev }) => {
               }
             >
               {images.map((image, i) => (
-                <img src={image} key={i} />
+                <img src={image} key={i} alt="" />
               ))}
             </div>
           </div>

@@ -53,11 +53,23 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
         formData.append("file", image);
       });
       const response = await uploadImages(formData, path, user.token);
-      await createPost(null, null, text, response, user.id, user.token);
+      const res = await createPost(
+        null,
+        null,
+        text,
+        response,
+        user.id,
+        user.token
+      );
       setLoading(false);
-      setText("");
-      setImages("");
-      setPostVisible(false);
+
+      if (res === "ok") {
+        setText("");
+        setImages("");
+        setPostVisible(false);
+      } else {
+        setError(res);
+      }
     } else if (text) {
       setLoading(true);
       const response = await createPost(
@@ -86,7 +98,8 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
       <div className="create_post_box" ref={postRef}>
         {error && (
           <div className="error_post">
-            {error}
+            <div className="err_post_pic">{error}</div>
+
             <div
               className="blue_btn"
               onClick={() => {
@@ -181,6 +194,7 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
               images={images}
               setImages={setImages}
               setShowPrev={setShowPrev}
+              setError={setError}
             />
           </>
         )}
