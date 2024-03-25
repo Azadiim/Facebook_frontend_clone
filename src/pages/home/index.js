@@ -7,6 +7,7 @@ import RightHome from "../../components/home/right";
 import Story from "../../components/home/story";
 import CreatePost from "../../components/createPost";
 import "./style.css";
+import Posts from "../../components/posts/Posts";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
@@ -23,11 +24,11 @@ const Home = ({ setPostVisible, posts }) => {
       <div className="middle_home">
         <Story />
         <CreatePost user={user} setPostVisible={setPostVisible} />
-        {posts.map((post) => (
-          <div className="post" key={post._id}>
-            {post.text}
-          </div>
-        ))}
+        <div className="posts">
+          {posts.map((post) => (
+            <Posts post={post} key={post._id} />
+          ))}
+        </div>
       </div>
       <RightHome user={user} />
     </div>

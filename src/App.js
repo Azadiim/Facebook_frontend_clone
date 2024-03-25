@@ -69,7 +69,6 @@ function App() {
       });
     }
   };
-
   const [postVisible, setPostVisible] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
   return (
