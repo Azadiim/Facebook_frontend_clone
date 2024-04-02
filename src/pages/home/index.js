@@ -17,9 +17,9 @@ const Home = ({ setPostVisible, posts }) => {
     setVisible(false);
   });
 
-  return (
-    <div className="home">
-      <Header />
+  return (<>
+  <Header />
+  <div className="home">
       <LeftHome user={user} />
       <div className="middle_home">
         <Story />
@@ -32,6 +32,7 @@ const Home = ({ setPostVisible, posts }) => {
       </div>
       <RightHome user={user} />
     </div>
+    </>
   );
 };
 

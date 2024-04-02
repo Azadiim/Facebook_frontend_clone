@@ -1,6 +1,6 @@
 .right_wrap {
   position: fixed;
-  width: 17vw;
+  width: 17vw !important;
   top: 4rem;
   left: 80.7vw;
 }

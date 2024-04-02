@@ -1,12 +1,12 @@
 .home {
   height: 100vh;
   background: var(--bg-secondary);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  overflow-y: auto;
 }
 
 .middle_home {
-  position: absolute;
+  position: relative;
   margin-top: 75px;
   margin-left: 50%;
   transform: translateX(-50%);
