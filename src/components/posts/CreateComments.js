@@ -5,7 +5,7 @@ const CreateComments = ({ user }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
   const [text, setText] = useState("");
-  const [error, setError] = useState("Format is not supported");
+  const [error, setError] = useState("");
   const [imageComment, setImageComment] = useState("");
   const textRef = useRef(null);
   const imageRef = useRef(null);
@@ -101,6 +101,19 @@ const CreateComments = ({ user }) => {
           </div>
         </div>
       </div>
+      {imageComment && (
+        <div className="image_comment_preview">
+          <img src={imageComment} alt=""></img>
+          <div
+            className="small_white_circle"
+            onClick={() => {
+              setImageComment("");
+            }}
+          >
+            <i className="exit_icon"></i>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

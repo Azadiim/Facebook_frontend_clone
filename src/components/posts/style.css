@@ -452,6 +452,31 @@
   padding: 0 15px !important;
   opacity: 0.9 !important;
 }
+.image_comment_preview {
+  margin-top: 10px;
+  margin-left: 30px;
+  position: relative;
+}
+.image_comment_preview img {
+  border-radius: 10px;
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+}
+.image_comment_preview .small_white_circle {
+  top: -0.9rem;
+  left: 8.5rem;
+  position: absolute;
+  color: #fff;
+  background: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transform: scale(0.6);
+  cursor: pointer;
+}
 
 /*-------------create comment -----------*/
 
