@@ -17,21 +17,22 @@ const Home = ({ setPostVisible, posts }) => {
     setVisible(false);
   });
 
-  return (<>
-  <Header />
-  <div className="home">
-      <LeftHome user={user} />
-      <div className="middle_home">
-        <Story />
-        <CreatePost user={user} setPostVisible={setPostVisible} />
-        <div className="posts">
-          {posts.map((post) => (
-            <Posts post={post} key={post._id} />
-          ))}
+  return (
+    <>
+      <Header />
+      <div className="home">
+        <LeftHome user={user} />
+        <div className="middle_home">
+          <Story />
+          <CreatePost user={user} setPostVisible={setPostVisible} />
+          <div className="posts">
+            {posts.map((post) => (
+              <Posts post={post} key={post._id} user={user} />
+            ))}
+          </div>
         </div>
+        <RightHome user={user} />
       </div>
-      <RightHome user={user} />
-    </div>
     </>
   );
 };

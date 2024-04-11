@@ -1,10 +1,10 @@
 .posts {
-  width: 100%;
+  max-width: 100%;
 }
 .post {
   margin-top: 20px;
   background: var(--bg-primary) !important;
-  width: 100%;
+  max-width: 680px;
   border-radius: 10px;
   box-shadow: 0 1px 2px var(--shadow-1);
   user-select: none;
@@ -279,6 +279,181 @@
   cursor: pointer;
   color: #fff;
 }
+.post .reacts_share {
+  margin: 0 15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  color: var(--color-secondary);
+  border-bottom: 1px solid var(--bg-secondary);
+}
+.post .reacts_share .to_left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.to_left .react_count_img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+.to_left .react_count_img img {
+  width: 18px;
+}
+.to_left .react_count_num {
+  font-size: 14px;
+  color: var(--color-secondary);
+}
+
+.post .reacts_share .to_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+.post .reacts_share .to_right .post_comments:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.post .reacts_share .to_right .post_share:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.post .reacts_like {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  padding: 10px;
+  border-bottom: 1px solid var(--bg-secondary);
+  margin: 0 15px 0 15px;
+  gap: 10px;
+  position: relative;
+}
+.post .reacts_like .like {
+  width: 33%;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.post .reacts_like .comment {
+  width: 33%;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.post .reacts_like .share {
+  width: 33%;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.react_pop_up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 20rem;
+  bottom: 3rem;
+  background: var(--bg-primary);
+  border-radius: 50px;
+  gap: 8px;
+  padding: 5px;
+  box-shadow: 0 1px 1px var(--shadow-2);
+}
+.react_pop_up .react:hover {
+  transform: scale(1.3);
+}
+.react_pop_up .react {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.react_pop_up .react img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+}
+
+/*-------------create comment -----------*/
+.comments_wrap {
+  padding: 10px 15px;
+}
+.create_comment {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+  flex-direction: row;
+}
+.create_comment img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.create_input_wrap {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-forth);
+  border-radius: 50px;
+  align-items: center;
+  padding-right: 10px;
+}
+.create_input_wrap input {
+  outline: none;
+  border: none;
+  height: 35px;
+  padding: 0 10px;
+  flex: 1;
+  color: var(--color-primary);
+  background: transparent;
+}
+.comment_circle_icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.comment_error {
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 0 15px !important;
+  opacity: 0.9 !important;
+}
+
+/*-------------create comment -----------*/
 
 @media (min-width: 940px) and (max-width: 1176px) {
   .post {

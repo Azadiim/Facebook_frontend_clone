@@ -1,10 +1,12 @@
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import { Dots, Public } from "../../svg";
-
 import "./style.css";
-
-const Posts = ({ post }) => {
+import ReactPopUp from "./ReactPopUp";
+import { useState } from "react";
+import CreateComments from "./CreateComments";
+const Posts = ({ post, user }) => {
+  const [react, setReact] = useState(false);
   return (
     <div className="post">
       <div className="post_header">
@@ -75,6 +77,47 @@ const Posts = ({ post }) => {
           )}
         </>
       )}
+      <div className="reacts_share">
+        <div className="to_left">
+          <div className="react_count_img"></div>
+          <div className="react_count_num"></div>
+        </div>
+        <div className="to_right">
+          <span className="post_comments">1comments</span>
+          <span className="post_share">1share</span>
+        </div>
+      </div>
+      <div className="reacts_like">
+        <ReactPopUp react={react} setReact={setReact} />
+        <div
+          className="like hover1"
+          onMouseOver={() => {
+            setTimeout(() => {
+              setReact(true);
+            }, 500);
+          }}
+          onMouseLeave={() => {
+            setTimeout(() => {
+              setReact(false);
+            }, 500);
+          }}
+        >
+          <i className="like_icon"></i>
+          <span>like</span>
+        </div>
+        <div className="comment hover1 ">
+          <i className="comment_icon"></i>
+          <span>comment</span>
+        </div>
+        <div className="share hover1 ">
+          <i className="share_icon"></i>
+          <span>share</span>
+        </div>
+      </div>
+      <div className="comments_wrap">
+        <div className="comments_order"></div>
+        <CreateComments user={user} />
+      </div>
     </div>
   );
 };
