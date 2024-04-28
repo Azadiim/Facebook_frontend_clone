@@ -444,6 +444,10 @@ header {
   width: 20px;
   height: 20px;
 }
+.profile_active {
+  background: var(--light-blue-color) ;
+  color: var(--blue-color);
+}
 
 /*-----User menu-----*/
 

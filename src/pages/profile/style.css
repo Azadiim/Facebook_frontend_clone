@@ -1,0 +1,98 @@
+.profile {
+  color: var(--color-primary);
+}
+.profile_top {
+  margin-top: 56px;
+  box-shadow: 0 1px 2px var(--shadow-1);
+  background: var(--bg-primary);
+}
+.profile_container {
+  max-width: 945px;
+  margin: 0 auto;
+}
+.profile_cover {
+  position: relative;
+  height: 350px;
+  width: 100%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: var(--bg-secondary);
+}
+.update_cover_wrapper {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+.update_cover_wrapper .open_cover {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #111;
+}
+.update_cover_wrapper .open_cover i {
+  transform: translateY(2px) scale(0.9);
+}
+.open_cover_menu {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  background: var(--bg-primary);
+  box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px var(--shadow-2),
+    inset 0 0 0 1px var(--shadow-inset);
+}
+.open_cover_menu .open_cover_menu_item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 1px 1px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+/*------profile picture------*/
+.profile_picture_wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-bottom: -2.8rem;
+}
+.profile_picture_wrap .profile_left {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 13px 0 13px;
+}
+.profile_left .profile_camera {
+ 
+  
+}
+.profile_left .profile_camera .profile_pic {
+  width: 180px;
+  height: 180px;
+}
+.profile_left .profile_camera .profile_camera_icon {
+}
+.profile_left .profile_text {
+}
+.profile_left .profile_text .text {
+}
+.profile_left .profile_text .counter {
+}
+.profile_left .profile_text .followers_pic {
+}
+.profile_picture_wrap .profile_right {
+}
+
+/*------profile picture------*/

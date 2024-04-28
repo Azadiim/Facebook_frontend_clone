@@ -4,6 +4,7 @@ import {
   Friends,
   Gaming,
   HomeActive,
+  Home,
   Logo,
   Market,
   Search,
@@ -20,7 +21,7 @@ import AllMenu from "./AllMenu";
 import useClickOutSide from "../../helpers/clickOutSide";
 import UserMenu from "./userMenu";
 
-const Header = () => {
+const Header = ({ page }) => {
   const { user } = useSelector((user) => ({ ...user }));
   const color = "#65676b";
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -60,8 +61,11 @@ const Header = () => {
         <SearchMenu setShowSearchMenu={setShowSearchMenu} color={color} />
       )}
       <div className="header_middle">
-        <Link to="/" className="middle_icon hover1 active">
-          <HomeActive color={color} />
+        <Link
+          to="/"
+          className={`middle_icon hover1 ${page === "home" ? "active" : ""}`}
+        >
+          {page === "home" ? <HomeActive /> : <Home color={color} />}
         </Link>
         <Link to="/" className="middle_icon hover1">
           <Friends color={color} />
@@ -78,7 +82,12 @@ const Header = () => {
         </Link>
       </div>
       <div className="header_right">
-        <Link to="/profile" className="profile_link hover1">
+        <Link
+          to="/profile"
+          className={`profile_link hover1 ${
+            page === "profile" ? "profile_active" : ""
+          }`}
+        >
           <img src={user?.picture} alt="" />
           <span>{user?.first_name}</span>
         </Link>

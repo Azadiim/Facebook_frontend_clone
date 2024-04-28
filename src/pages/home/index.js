@@ -19,7 +19,7 @@ const Home = ({ setPostVisible, posts }) => {
 
   return (
     <>
-      <Header />
+      <Header page="home" />
       <div className="home">
         <LeftHome user={user} />
         <div className="middle_home">
