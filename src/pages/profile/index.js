@@ -8,6 +8,8 @@ import "./style.css";
 
 import Cover from "./cover";
 import ProfileImageInfo from "./ProfileImageInfo";
+import ProfileMenu from "./ProfileMenu";
+import PplYouMayKnow from "./PplYouMayKnow";
 
 const Profile = () => {
   const { username } = useParams();
@@ -36,7 +38,7 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
-     
+
       if (data.profileExist === false) {
         navigate("/profile");
       } else {
@@ -59,6 +61,14 @@ const Profile = () => {
         <div className="profile_container">
           <Cover cover={profile.cover} />
           <ProfileImageInfo profile={profile} />
+          <ProfileMenu />
+        </div>
+      </div>
+      <div className="profile_bottom">
+        <div className="profile_bottom_container">
+          <div className="btm_container">
+            <PplYouMayKnow />
+          </div>
         </div>
       </div>
     </div>

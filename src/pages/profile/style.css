@@ -75,24 +75,217 @@
   padding: 1rem 13px 0 13px;
 }
 .profile_left .profile_camera {
- 
-  
+  position: relative;
 }
 .profile_left .profile_camera .profile_pic {
   width: 180px;
   height: 180px;
+  transform: translateY(-3.6rem);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #fff;
+  cursor: pointer;
+}
+.profile_left .profile_camera .profile_pic:hover {
+  filter: brightness(95%);
 }
 .profile_left .profile_camera .profile_camera_icon {
+  position: absolute;
+  top: 4rem;
+  right: 0.3rem;
+  color: #111;
 }
+.profile_left .profile_camera .hover_custom {
+  background: var(--bg-third);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.profile_left .profile_camera .hover_custom:hover {
+  filter: brightness(80%);
+}
+
 .profile_left .profile_text {
+  display: flex;
+  flex-direction: column;
 }
 .profile_left .profile_text .text {
+  display: flex;
+  font-size: 32px;
+  font-weight: 700;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+.profile_left .profile_text .text .othername {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-secondary);
 }
 .profile_left .profile_text .counter {
+  color: var(--color-secondary);
 }
 .profile_left .profile_text .followers_pic {
 }
 .profile_picture_wrap .profile_right {
+  display: flex;
+  gap: 8px;
+  padding: 0 18px;
+  margin-bottom: 7px;
+}
+.profile_picture_wrap .profile_right .blue_btn .invert {
+  filter: invert(100%);
+}
+.profile_picture_wrap .profile_right .gray_btn {
+}
+
+/*-------profile Menu------*/
+.profile_menu {
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.2rem;
+  margin-top: 2rem;
+}
+.profile_menu .left_menu {
+  display: flex;
+}
+
+.profile_menu .left_menu a {
+  height: 54px;
+  width: 78.5px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-secondary);
+  margin: 3px 0;
+  border-radius: 10px;
+}
+.profile_menu_active {
+  color: var(--blue-color);
+}
+.arrow_span i {
+  transform: translateY(2px);
+  margin-left: 2px;
+}
+.profile_menu .right_menu {
+  display: grid;
+  place-items: center;
+}
+.profile_menu .right_menu .dot10 {
+  height: 54px;
+  width: 78.5px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-secondary);
+  margin: 3px 0;
+  border-radius: 10px;
+}
+
+.profile_bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-secondary);
+}
+.profile_bottom .profile_bottom_container {
+}
+
+.profile_bottom .profile_bottom_container .btm_container {
+}
+
+.ppl_you_know {
+  border: 2px solid lightblue;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.ppl_you_know .ppl_you_know_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+.ppl_you_know .ppl_you_know_header span {
+ font-weight: 600;
+ margin-bottom: 5px;
+}
+.ppl_you_know .ppl_you_know_header .ppl_circle {
+}
+
+.ppl_you_know .ppl_you_know_list {
+  display: flex;
+  gap: 5px;
+  height: 220px;
+
+}
+.add_friend_card {
+  background: var(--bg-primary);
+  border-radius: 5px;
+  
+}
+.add_friend_card .add_friend_imgsmall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.add_friend_card .add_friend_imgsmall .add_friend {
+  background: var(--light-blue-color);
+  padding: 5px 5px;
+  border-radius: 5px;
+  color: var(--blue-color);
+  font-size: 14px;
+  font-weight: 600;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.add_friend i {
+  transform: scale(0.6);
+  color: blue;
+}
+
+.add_friend_card .add_friend_imgsmall img {
+  width: 130px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/*-------profile Menu------*/
+
+@media (max-width: 815px) {
+  .profile_picture_wrap {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4rem;
+  }
+  .profile_picture_wrap .profile_left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 0px;
+  }
+  .profile_left .profile_text .text {
+    margin-top: -2rem;
+  }
 }
 
 /*------profile picture------*/
