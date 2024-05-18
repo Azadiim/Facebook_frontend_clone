@@ -4,14 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { profileReducer } from "../../functions/reducers";
 import Header from "../../components/header";
 import axios from "axios";
+import CreatePost from "../../components/createPost/index";
 import "./style.css";
 
 import Cover from "./cover";
 import ProfileImageInfo from "./ProfileImageInfo";
 import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
+import GridPosts from "./GridPosts";
 
-const Profile = () => {
+const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
 
   const navigate = useNavigate();
@@ -68,6 +70,17 @@ const Profile = () => {
         <div className="profile_bottom_container">
           <div className="btm_container">
             <PplYouMayKnow />
+            <div className="profile_grid">
+              <div className="profile_left"></div>
+              <div className="profile_right">
+                <CreatePost
+                  user={user}
+                  profile
+                  setPostVisible={setPostVisible}
+                />
+                <GridPosts />
+              </div>
+            </div>
           </div>
         </div>
       </div>

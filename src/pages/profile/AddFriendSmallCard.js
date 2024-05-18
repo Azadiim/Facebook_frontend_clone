@@ -12,7 +12,7 @@ const AddFriendSmallCard = ({ item }) => {
         </div>
         <div className="add_friend">
           {" "}
-          <i className="friends_suggestions_icon friendIcon"></i> Add Friend
+          <i className="friends_suggestions_icon filter_blue"></i> Add Friend
         </div>
       </div>
     </div>
