@@ -131,11 +131,15 @@
 }
 .profile_left .profile_text .followers_pic {
 }
+
 .profile_picture_wrap .profile_right {
   display: flex;
   gap: 8px;
   padding: 0 18px;
   margin-bottom: 7px;
+}
+.profile_picture_wrap .profile_right .create_post {
+  width: 700px !important;
 }
 .profile_picture_wrap .profile_right .blue_btn .invert {
   filter: invert(100%);
@@ -201,9 +205,17 @@
 }
 .profile_bottom .profile_bottom_container {
   padding: 10px 2.2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .profile_bottom .profile_bottom_container .btm_container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .ppl_you_know {
@@ -211,6 +223,9 @@
   padding: 10px 15px;
   margin-top: 10px;
   border-radius: 10px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 .ppl_you_know .ppl_you_know_header {
   display: flex;
@@ -239,13 +254,14 @@
   display: flex;
   gap: 5px;
   height: 220px;
+  justify-content: center;
+  align-items: center;
 }
 .add_friend_card {
   background: var(--bg-primary);
   border-radius: 10px;
   position: relative;
   height: 100%;
-
   overflow: hidden;
 }
 .add_friend_card .add_friend_imgsmall {
@@ -311,14 +327,16 @@
   font-size: 12px;
 }
 
-
 .create_post .grid_post_body {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 5px;
-
 }
+.grid_post_body .active {
+  color: var(--blue-color);
+}
+
 .create_post .grid_post_body .grid_list {
   display: flex;
   justify-content: center;
@@ -330,6 +348,15 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+}
+.no-post{
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*---filters ---*/

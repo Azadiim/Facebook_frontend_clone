@@ -13,7 +13,7 @@
 }
 @media (max-width: 1175px) {
   .story,
-  .create_post {
+  .middle_home .create_post {
     width: 83%;
   }
   .middle_home {

@@ -12,6 +12,7 @@ import ProfileImageInfo from "./ProfileImageInfo";
 import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
 import GridPosts from "./GridPosts";
+import Posts from "../../components/posts/Posts";
 
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
@@ -25,6 +26,8 @@ const Profile = ({ setPostVisible }) => {
     profile: {},
     error: "",
   });
+
+  const yourPage = userName === user.username ? true : false;
 
   useEffect(() => {
     getProfile();
@@ -46,23 +49,24 @@ const Profile = ({ setPostVisible }) => {
       } else {
         dispatch({
           type: "PROFILE_SUCCESS",
-          payload: data.profile,
+          payload: data,
         });
       }
     } catch (error) {
       dispatch({
         type: "PROFILE_ERROR",
-        payload: error.response.data.message,
+        payload: error,
       });
     }
   };
+
   return (
     <div className="profile">
       <Header page="profile" />
       <div className="profile_top">
         <div className="profile_container">
-          <Cover cover={profile.cover} />
-          <ProfileImageInfo profile={profile} />
+          <Cover cover={profile.cover} yourPage={yourPage} />
+          <ProfileImageInfo profile={profile} yourPage={yourPage} />
           <ProfileMenu />
         </div>
       </div>
@@ -73,12 +77,21 @@ const Profile = ({ setPostVisible }) => {
             <div className="profile_grid">
               <div className="profile_left"></div>
               <div className="profile_right">
-                <CreatePost
-                  user={user}
-                  profile
-                  setPostVisible={setPostVisible}
-                />
+                {yourPage && (
+                  <CreatePost
+                    user={user}
+                    profile
+                    setPostVisible={setPostVisible}
+                  />
+                )}
                 <GridPosts />
+                {profile.posts && profile.posts.length ? (
+                  profile.posts.map((post) => (
+                    <Posts post={post} user={user} key={post._id} />
+                  ))
+                ) : (
+                  <div className="no-post">No Post Available!</div>
+                )}
               </div>
             </div>
           </div>
