@@ -13,6 +13,8 @@ import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
 import GridPosts from "./GridPosts";
 import Posts from "../../components/posts/Posts";
+import Photos from "./Photos";
+import Friends from "./Friends";
 
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
@@ -75,7 +77,10 @@ const Profile = ({ setPostVisible }) => {
           <div className="btm_container">
             <PplYouMayKnow />
             <div className="profile_grid">
-              <div className="profile_left"></div>
+              <div className="profile_left">
+                <Photos username={userName} token={user.token} />
+                <Friends friends={profile.friends} />
+              </div>
               <div className="profile_right">
                 {yourPage && (
                   <CreatePost
@@ -87,7 +92,7 @@ const Profile = ({ setPostVisible }) => {
                 <GridPosts />
                 {profile.posts && profile.posts.length ? (
                   profile.posts.map((post) => (
-                    <Posts post={post} user={user} key={post._id} />
+                    <Posts post={post} user={user} key={post._id} profile />
                   ))
                 ) : (
                   <div className="no-post">No Post Available!</div>

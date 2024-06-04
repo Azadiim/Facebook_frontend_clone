@@ -50,4 +50,30 @@ const profileReducer = (state, action) => {
   }
 };
 
-export { postReducer, profileReducer };
+const photoReducer = (state, action) => {
+  switch (action.type) {
+    case "PHOTO_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
+    case "PHOTO_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        photos: action.payload,
+        error: "",
+      };
+    case "PHOTO_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export { postReducer, profileReducer, photoReducer };

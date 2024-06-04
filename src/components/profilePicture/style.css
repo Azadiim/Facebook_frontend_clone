@@ -1,0 +1,46 @@
+.pictureBox {
+  width: 700px !important;
+  height: 62vh;
+}
+
+.update_picture_buttons > .blue_btn {
+  width: 100%;
+  background-color: #b3faff !important;
+  color: var(--blue-color);
+}
+.update_picture_buttons > .gray_btn {
+  width: 100%;
+}
+.update_picture_wrap > .update_picture_buttons {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+}
+.update_img {
+  width: 700px !important;
+  height: 800px;
+}
+.update_image_description {
+  padding: 15px;
+}
+.textarea_blue {
+  
+  resize: none;
+  border-radius: 7px;
+  width: 100%;
+  height: 85px;
+  outline-offset: 3px;
+  border-color: var(--bg-third);
+  padding: 1.4rem;
+  background-color: var(--bg-primary);
+  font-size:16px;
+  font-family: inherit;
+  color: var(--color-primary);
+
+}
+.textarea_blue:focus {
+  outline-color: var(--blue-color);
+}
+.textarea_blue:hover {
+  border-color: var(--color-secondary);
+}
