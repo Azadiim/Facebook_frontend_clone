@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
-const ProfilePicture = () => {
+const ProfilePicture = ({ setShow }) => {
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -26,6 +26,8 @@ const ProfilePicture = () => {
       setImage(event.target.result);
     };
   };
+  
+
   return (
     <div className="blur">
       <input
@@ -38,7 +40,7 @@ const ProfilePicture = () => {
       <div className="create_post_box pictureBox">
         <div className="div create_post_box_header">
           <span>Update Profile Picture</span>
-          <div className="small_circle">
+          <div className="small_circle" onClick={() => setShow(false)}>
             <i className="exit_icon"></i>
           </div>
         </div>
@@ -74,7 +76,7 @@ const ProfilePicture = () => {
         )}
         <div className="old_picture_wrap"></div>
       </div>
-      {image && <UpdateProfilePicture setImage={setImage} image={image} />}
+      {image && <UpdateProfilePicture setImage={setImage} image={image} setError={setError} />}
     </div>
   );
 };

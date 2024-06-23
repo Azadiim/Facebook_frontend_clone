@@ -27,7 +27,7 @@
   padding: 15px;
 }
 .update_image_description textarea {
- background: var(--bg-secondary);
+  background: var(--bg-secondary);
 }
 .textarea_blue {
   resize: none;
@@ -119,11 +119,14 @@
   gap: 20px;
   justify-content: flex-end;
   padding: 20px;
-  font-weight:600;
+  font-weight: 600;
 }
 .update_img .save_part {
-  color: var(--blue-color)
+  color: var(--blue-color);
 }
 .update_img .blue_btn {
   width: 80px;
+}
+.update_img .blue_btn:hover {
+  filter: brightness(0.9);
 }

@@ -1,14 +1,21 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
+import getCroppedImg from "../../helpers/getCroppedImg";
+import { useSelector } from "react-redux";
+import { uploadImages } from "../../functions/uploadImages";
+import { updateProf } from "../../functions/user";
+import { createPost } from "../../functions/post";
 
-const UpdateProfilePicture = ({ setImage, image }) => {
+const UpdateProfilePicture = ({ setImage, image, setError }) => {
   const [description, setDescription] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const refSlider = useRef(null);
-  const onCropComplete = (croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels);
-  };
+  const { user } = useSelector((state) => ({ ...state }));
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
   const handleZoomOut = () => {
     refSlider.current.stepDown();
     setZoom(refSlider.current.value);
@@ -16,6 +23,53 @@ const UpdateProfilePicture = ({ setImage, image }) => {
   const handleZoomIn = () => {
     refSlider.current.stepUp();
     setZoom(refSlider.current.value);
+  };
+  const getCroppedImage = useCallback(
+    async (show) => {
+      try {
+        const img = await getCroppedImg(image, croppedAreaPixels);
+        if (show) {
+          setZoom(1);
+          setCrop({ x: 0, y: 0 });
+          setImage(img);
+        } else {
+          return img;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [croppedAreaPixels]
+  );
+  const updateProfPic = async () => {
+    try {
+      let img = await getCroppedImage();
+      let blobimg = await fetch(img).then((b) => b.blob());
+      const path = `${user.username}/profilePicture`;
+      let formData = new FormData();
+      formData.append("file", blobimg);
+      formData.append("path", path);
+      const res = await uploadImages(formData, path, user.token);
+      const prof_update = await updateProf(res[0].url, user.token);
+      if (prof_update === "ok") {
+        const newPost = await createPost(
+          "profilePicture",
+          null,
+          description,
+          res,
+          user.id,
+          user.token
+        );
+        if (newPost === "ok") {
+        } else {
+          setError(newPost);
+        }
+      } else {
+        setError(prof_update);
+      }
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -80,7 +134,12 @@ const UpdateProfilePicture = ({ setImage, image }) => {
           </div>
         </div>
         <div className="crop_make_part">
-          <div className="gray_btn hover1">
+          <div
+            className="gray_btn hover1"
+            onClick={() => {
+              getCroppedImage("show");
+            }}
+          >
             <i className="crop_icon"></i>Crop Photo
           </div>
           <div className="gray_btn hover1">
@@ -91,7 +150,9 @@ const UpdateProfilePicture = ({ setImage, image }) => {
       <div className="comment_profile">Your profile picture is public</div>
       <div className="cancel_save_part">
         <div className="save_part">cancel</div>
-        <div className="blue_btn">save</div>
+        <div className="blue_btn" onClick={() => updateProfPic()}>
+          save
+        </div>
       </div>
     </div>
   );

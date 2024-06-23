@@ -2,12 +2,12 @@ import { useState } from "react";
 import ProfilePicture from "../../components/profilePicture";
 
 const ProfileImageInfo = ({ profile, yourPage }) => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
-        {show && <ProfilePicture />}
-        <div className="profile_camera">
+        {show && <ProfilePicture setShow={setShow}/>}
+        <div className="profile_camera" onClick={() => setShow(true)}>
           <div
             className="profile_pic"
             style={{
