@@ -1,10 +1,16 @@
 import { useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
-const ProfilePicture = ({ setShow }) => {
+import useClickOutSide from "../../helpers/clickOutSide";
+const ProfilePicture = ({ setShow, ppRef }) => {
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
+  const refProf = useRef(null);
+  // useClickOutSide(refProf, () => {
+  //   setShow(false);
+  // });
+
   const handleImage = (e) => {
     let file = e.target.files[0];
     if (
@@ -26,7 +32,6 @@ const ProfilePicture = ({ setShow }) => {
       setImage(event.target.result);
     };
   };
-  
 
   return (
     <div className="blur">
@@ -37,7 +42,7 @@ const ProfilePicture = ({ setShow }) => {
         onChange={handleImage}
         accept="image/png,image/jpeg,image/gif,image/webp"
       />
-      <div className="create_post_box pictureBox">
+      <div className="create_post_box pictureBox" ref={refProf}>
         <div className="div create_post_box_header">
           <span>Update Profile Picture</span>
           <div className="small_circle" onClick={() => setShow(false)}>
@@ -76,7 +81,15 @@ const ProfilePicture = ({ setShow }) => {
         )}
         <div className="old_picture_wrap"></div>
       </div>
-      {image && <UpdateProfilePicture setImage={setImage} image={image} setError={setError} />}
+      {image && (
+        <UpdateProfilePicture
+          setImage={setImage}
+          image={image}
+          setError={setError}
+          setShow={setShow}
+          ppRef={ppRef}
+        />
+      )}
     </div>
   );
 };

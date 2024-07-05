@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import ProfilePicture from "../../components/profielPicture";
+import ProfilePicture from "../../components/profilePicture/UpdateProfilePicture";
 export default function ProfielPictureInfos({
   profile,
   visitor,

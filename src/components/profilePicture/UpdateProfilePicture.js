@@ -5,14 +5,22 @@ import { useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
 import { updateProf } from "../../functions/user";
 import { createPost } from "../../functions/post";
+import PulseLoader from "react-spinners/PulseLoader";
 
-const UpdateProfilePicture = ({ setImage, image, setError }) => {
+const UpdateProfilePicture = ({
+  setImage,
+  image,
+  setError,
+  setShow,
+  ppRef,
+}) => {
   const [description, setDescription] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const refSlider = useRef(null);
   const { user } = useSelector((state) => ({ ...state }));
+  const [loading, setLoading] = useState(false);
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -43,6 +51,7 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
   );
   const updateProfPic = async () => {
     try {
+      setLoading(true);
       let img = await getCroppedImage();
       let blobimg = await fetch(img).then((b) => b.blob());
       const path = `${user.username}/profilePicture`;
@@ -50,7 +59,7 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
       formData.append("file", blobimg);
       formData.append("path", path);
       const res = await uploadImages(formData, path, user.token);
-     
+
       const prof_update = await updateProf(res[0].url, user.token);
       if (prof_update === "ok") {
         const newPost = await createPost(
@@ -62,13 +71,19 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
           user.token
         );
         if (newPost === "ok") {
+          setLoading(false);
+          setImage("");
+          ppRef.current.style.backgroundImage = `url(${res[0].url})`;
+          setShow(false);
         } else {
           setError(newPost);
         }
       } else {
+        setLoading(false);
         setError(prof_update);
       }
     } catch (error) {
+      setLoading(false);
       setError(error.response);
     }
   };
@@ -150,11 +165,15 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
       </div>
       <div className="comment_profile">Your profile picture is public</div>
       <div className="cancel_save_part">
-        <div className="save_part" onClick={() => setImage("")}>
+        <div
+          className="save_part"
+          disabled={loading}
+          onClick={() => setImage("")}
+        >
           cancel
         </div>
         <div className="blue_btn" onClick={() => updateProfPic()}>
-          save
+          {loading ? <PulseLoader color="#fff" size={5} /> : "Save"}
         </div>
       </div>
     </div>
