@@ -123,6 +123,7 @@
 }
 .update_img .save_part {
   color: var(--blue-color);
+  cursor: pointer;
 }
 .update_img .blue_btn {
   width: 80px;

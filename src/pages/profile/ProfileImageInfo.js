@@ -6,7 +6,7 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
-        {show && <ProfilePicture setShow={setShow}/>}
+        {show && <ProfilePicture setShow={setShow} />}
         <div className="profile_camera" onClick={() => setShow(true)}>
           <div
             className="profile_pic"

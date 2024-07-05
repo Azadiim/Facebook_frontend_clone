@@ -50,6 +50,7 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
       formData.append("file", blobimg);
       formData.append("path", path);
       const res = await uploadImages(formData, path, user.token);
+     
       const prof_update = await updateProf(res[0].url, user.token);
       if (prof_update === "ok") {
         const newPost = await createPost(
@@ -68,7 +69,7 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
         setError(prof_update);
       }
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response);
     }
   };
 
@@ -149,7 +150,9 @@ const UpdateProfilePicture = ({ setImage, image, setError }) => {
       </div>
       <div className="comment_profile">Your profile picture is public</div>
       <div className="cancel_save_part">
-        <div className="save_part">cancel</div>
+        <div className="save_part" onClick={() => setImage("")}>
+          cancel
+        </div>
         <div className="blue_btn" onClick={() => updateProfPic()}>
           save
         </div>
