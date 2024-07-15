@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { profileReducer } from "../../functions/reducers";
@@ -18,11 +18,14 @@ import Friends from "./Friends";
 
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
-
   const navigate = useNavigate();
+  const [photos, setPhotos] = useState({});
 
   const { user } = useSelector((state) => ({ ...state }));
   const userName = username === undefined ? user.username : username;
+  const path = `${userName}/*`;
+  const max = 30;
+  const sort = "desc";
   const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
     loading: false,
     profile: {},
@@ -49,6 +52,19 @@ const Profile = ({ setPostVisible }) => {
       if (data.profileExist === false) {
         navigate("/profile");
       } else {
+        try {
+          const img = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/listImages`,
+            { path, max, sort },
+            {
+              headers: { Authorization: `Bearer ${user.token}` },
+            }
+          );
+          console.log(img.data);
+          setPhotos(img.data);
+        } catch (error) {
+          console.log(error);
+        }
         dispatch({
           type: "PROFILE_SUCCESS",
           payload: data,
@@ -68,7 +84,11 @@ const Profile = ({ setPostVisible }) => {
       <div className="profile_top">
         <div className="profile_container">
           <Cover cover={profile.cover} yourPage={yourPage} />
-          <ProfileImageInfo profile={profile} yourPage={yourPage} />
+          <ProfileImageInfo
+            profile={profile}
+            yourPage={yourPage}
+            photos={photos.resources}
+          />
           <ProfileMenu />
         </div>
       </div>
@@ -78,7 +98,11 @@ const Profile = ({ setPostVisible }) => {
             <PplYouMayKnow />
             <div className="profile_grid">
               <div className="profile_left">
-                <Photos username={userName} token={user.token} />
+                <Photos
+                  username={userName}
+                  token={user.token}
+                  photos={photos}
+                />
                 <Friends friends={profile.friends} />
               </div>
               <div className="profile_right">

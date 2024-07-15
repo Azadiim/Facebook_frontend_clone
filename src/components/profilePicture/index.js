@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutSide from "../../helpers/clickOutSide";
-const ProfilePicture = ({ setShow, ppRef }) => {
+import { useSelector } from "react-redux";
+const ProfilePicture = ({ setShow, ppRef, photos }) => {
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -10,7 +11,7 @@ const ProfilePicture = ({ setShow, ppRef }) => {
   // useClickOutSide(refProf, () => {
   //   setShow(false);
   // });
-
+  const { user } = useSelector((state) => ({ ...state }));
   const handleImage = (e) => {
     let file = e.target.files[0];
     if (
@@ -79,7 +80,13 @@ const ProfilePicture = ({ setShow, ppRef }) => {
             </button>
           </div>
         )}
-        <div className="old_picture_wrap"></div>
+        <div className="old_picture_wrap">
+          {photos
+            .filter((img) => img.folder !== `${user.username}/profilePicture`)
+            .map((photo) => (
+              <img src={photo.secure_url} key={photo.public_id} alt="Old profile pictures" style={{width:'100px'}} />
+            ))}
+        </div>
       </div>
       {image && (
         <UpdateProfilePicture

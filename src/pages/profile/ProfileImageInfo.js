@@ -1,13 +1,15 @@
 import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profilePicture";
 
-const ProfileImageInfo = ({ profile, yourPage }) => {
+const ProfileImageInfo = ({ profile, yourPage, photos }) => {
   const [show, setShow] = useState(false);
   const ppRef = useRef(null);
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
-        {show && <ProfilePicture setShow={setShow} ppRef={ppRef} />}
+        {show && (
+          <ProfilePicture setShow={setShow} ppRef={ppRef} photos={photos} />
+        )}
         <div className="profile_camera" onClick={() => setShow(true)}>
           <div
             className="profile_pic"

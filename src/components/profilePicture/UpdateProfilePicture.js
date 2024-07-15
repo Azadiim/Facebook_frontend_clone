@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../helpers/getCroppedImg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
 import { updateProf } from "../../functions/user";
 import { createPost } from "../../functions/post";
 import PulseLoader from "react-spinners/PulseLoader";
+import Cookies from "js-cookie";
 
 const UpdateProfilePicture = ({
   setImage,
@@ -14,6 +15,7 @@ const UpdateProfilePicture = ({
   setShow,
   ppRef,
 }) => {
+  const dispatch = useDispatch();
   const [description, setDescription] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -74,6 +76,14 @@ const UpdateProfilePicture = ({
           setLoading(false);
           setImage("");
           ppRef.current.style.backgroundImage = `url(${res[0].url})`;
+          Cookies.set(
+            "user",
+            JSON.stringify({
+              ...user,
+              picture: res[0].url,
+            })
+          );
+          dispatch({ type: "UPDATEPICTURE", payload: res[0].url });
           setShow(false);
         } else {
           setError(newPost);
