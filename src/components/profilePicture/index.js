@@ -81,11 +81,36 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
           </div>
         )}
         <div className="old_picture_wrap">
-          {photos
-            .filter((img) => img.folder !== `${user.username}/profilePicture`)
-            .map((photo) => (
-              <img src={photo.secure_url} key={photo.public_id} alt="Old profile pictures" style={{width:'100px'}} />
-            ))}
+          <span>Old profile Picture</span>
+          <div className="pptuned_profile">
+            {photos
+              .filter((img) => img.folder === `${user.username}/profilePicture`)
+              .map((photo) => (
+                <img
+                  onClick={() => setImage(photo.secure_url)}
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt="Old profile pictures"
+                  style={{ width: "100px" }}
+                />
+              ))}
+          </div>
+          <div className="splitter"></div>
+          <span>Old Other Picture</span>
+          <div className="pptuned_non_profile">
+            {photos
+              .filter((img) => img.folder !== `${user.username}/profilePicture`)
+              .map((photo) => (
+                <img
+                  onClick={() => setImage(photo.secure_url)}
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt="Old profile pictures"
+                  style={{ width: "100px", height: "100px" }}
+                />
+              ))
+              .slice(0, 5)}
+          </div>
         </div>
       </div>
       {image && (

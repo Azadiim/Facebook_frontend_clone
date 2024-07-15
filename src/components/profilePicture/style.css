@@ -1,6 +1,6 @@
 .pictureBox {
   width: 700px !important;
-  height: 62vh;
+  height: 75vh;
 }
 
 .update_picture_buttons > .blue_btn {
@@ -130,4 +130,37 @@
 }
 .update_img .blue_btn:hover {
   filter: brightness(0.9);
+}
+.old_picture_wrap {
+  overflow-y: auto;
+}
+.old_picture_wrap span {
+  padding: 10px;
+  color: var(--color-secondary);
+  font-size: small;
+}
+.old_picture_wrap > .splitter {
+  margin: 10px;
+  width: 85%;
+}
+.old_picture_wrap .pptuned_profile {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.old_picture_wrap .pptuned_profile img {
+  border-radius: 5px;
+}
+.old_picture_wrap .pptuned_profile img:hover {
+  filter: brightness(120%);
+}
+.pptuned_non_profile {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.pptuned_non_profile img {
+  border-radius: 5px;
 }
