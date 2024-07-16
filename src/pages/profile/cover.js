@@ -1,5 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import useClickOutSide from "../../helpers/clickOutSide";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "../../helpers/getCroppedImg";
+import Public from "../../svg/public";
 
 const Cover = ({ cover, yourPage }) => {
   const [showUpdateCover, setShowUpdateCover] = useState(false);
@@ -7,6 +10,12 @@ const Cover = ({ cover, yourPage }) => {
   const [error, setError] = useState("");
   const coverRef = useRef(null);
   const refCoverIn = useRef(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
   useClickOutSide(coverRef, () => {
     setShowUpdateCover(false);
   });
@@ -31,10 +40,43 @@ const Cover = ({ cover, yourPage }) => {
       setCoverPicture(event.target.result);
     };
   };
-  console.log(coverPicture);
+  const getCroppedImage = useCallback(
+    async (show) => {
+      try {
+        const img = await getCroppedImg(coverPicture, croppedAreaPixels);
+        if (show) {
+          setZoom(1);
+          setCrop({ x: 0, y: 0 });
+          setCoverPicture(img);
+        } else {
+          return img;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [croppedAreaPixels]
+  );
+  const refCrooped = useRef(null);
+  const [width, setWidth] = useState(null);
+  useEffect(() => {
+    setWidth(refCrooped.current.clientWidth);
+  }, [window.innerWidth]);
 
   return (
-    <div className="profile_cover">
+    <div className="profile_cover" ref={refCrooped}>
+      {coverPicture && (
+        <div className="cover_save_changes">
+          <div className="cover_left">
+            <Public />
+            <span>your cover picture is public</span>
+          </div>
+          <div className="cover_right">
+            <button className="blue_btn opacity_btn">cancel</button>
+            <button className="blue_btn ">save changes</button>
+          </div>
+        </div>
+      )}
       <input
         type="file"
         hidden
@@ -53,6 +95,21 @@ const Cover = ({ cover, yourPage }) => {
           >
             Try again
           </button>
+        </div>
+      )}
+      {coverPicture && (
+        <div className="cover_crooper">
+          <Cropper
+            image={coverPicture}
+            crop={crop}
+            zoom={zoom}
+            aspect={width / 350}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+            objectFit="horizontal-cover"
+            showGrid={true}
+          />
         </div>
       )}
       {cover && <img src={cover} className="cover" alt="" />}

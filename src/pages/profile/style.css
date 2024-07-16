@@ -15,8 +15,8 @@
   position: relative;
   height: 350px;
   width: 100%;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10x;
   background: var(--bg-secondary);
 }
 .update_cover_wrapper {
@@ -62,7 +62,7 @@
   height: 100px;
   z-index: 10000;
 }
-.pay_attention_after > .hover1{
+.pay_attention_after > .hover1 {
   width: 140px;
   height: 50px;
   border-radius: 10px;
@@ -438,6 +438,66 @@
 .photo_collection .photo_body .grid_photo :hover {
   transform: scale(1.1);
   transition: all 0.2s;
+}
+
+.cover_crooper {
+  height: 100%;
+}
+.cover_crooper img {
+  width: 100%;
+  object-fit: cover;
+}
+.reactEasyCrop_Container {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.reactEasyCrop_CropAreaGrid {
+  height: 100%;
+}
+.reactEasyCrop_CropArea {
+  height: 100%;
+}
+.cover_save_changes {
+  position: fixed;
+  width: 100%;
+  z-index: 100000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  color: var(--color-primary);
+  left: 0;
+  padding: 10px 15px;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  font-weight: 700;
+}
+.cover_save_changes .cover_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.cover_save_changes .cover_right button {
+  font-weight: 700;
+}
+.cover_save_changes .cover_right button:first-of-type {
+  background: #39393f;
+}
+.cover_save_changes .cover_right button:last-of-type {
+  width: 160px;
+}
+.cover_save_changes .cover_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+.cover_save_changes .cover_left svg {
+  filter: invert(100%);
+  transform: scale(120%);
+
 }
 
 /*-------left side photo profile-------*/
