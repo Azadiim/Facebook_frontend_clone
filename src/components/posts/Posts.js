@@ -55,7 +55,7 @@ const Posts = ({ post, user, profile }) => {
         >
           <div className="post_bg_text">{post.text}</div>
         </div>
-      ) : (
+      ) : post.type === null ? (
         <>
           <div className="post_text">{post.text}</div>
           {post.images && post.images.length && (
@@ -83,6 +83,17 @@ const Posts = ({ post, user, profile }) => {
             </div>
           )}
         </>
+      ) : post.type === "profilePicture" ? (
+        <div className="profile_picture_wrap">
+          <div className="post_cover_bg">
+            <img src={post.user.cover} alt="" />
+          </div>
+          {post.images && (
+            <img src={post.images[0].url} alt="" className="post_profile_bg" />
+          )}
+        </div>
+      ) : (
+        <div className="profile_picture_cover"></div>
       )}
       <div className="reacts_share">
         <div className="to_left">

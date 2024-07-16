@@ -40,17 +40,14 @@
   transform: translateY(2px) scale(0.9);
 }
 .open_cover_menu {
-  position: absolute;
-  right: 0;
-  padding: 10px;
-  border-radius: 10px;
-  width: 300px;
+  position: relative;
   background: var(--bg-primary);
-  box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px var(--shadow-2),
-    inset 0 0 0 1px var(--shadow-inset);
 }
-.open_cover_menu .open_cover_menu_item {
+.pay_attention_after {
+  position: absolute;
+  top: 14px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   align-items: center;
   margin: 1px 1px;
@@ -59,8 +56,20 @@
   font-weight: 600;
   font-size: 14px;
   border-radius: 10px;
+  box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px var(--shadow-2),
+    inset 0 0 0 1px var(--shadow-inset);
+  width: 150px;
+  height: 100px;
+  z-index: 10000;
 }
-
+.pay_attention_after > .hover1{
+  width: 140px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /*------profile picture------*/
 .profile_picture_wrap {
   position: relative;
@@ -427,8 +436,8 @@
   border-radius: 10px;
 }
 .photo_collection .photo_body .grid_photo :hover {
-transform: scale(1.1);
-transition: all .2s;
+  transform: scale(1.1);
+  transition: all 0.2s;
 }
 
 /*-------left side photo profile-------*/

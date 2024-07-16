@@ -1,6 +1,6 @@
 .pictureBox {
   width: 700px !important;
-  height: 75vh;
+  height: 80vh;
 }
 
 .update_picture_buttons > .blue_btn {
@@ -141,7 +141,8 @@
 }
 .old_picture_wrap > .splitter {
   margin: 10px;
-  width: 85%;
+  width: 89.3%;
+  border: .5px solid var(--bg-third);
 }
 .old_picture_wrap .pptuned_profile {
   padding: 10px;

@@ -8,9 +8,9 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const refProf = useRef(null);
-  // useClickOutSide(refProf, () => {
-  //   setShow(false);
-  // });
+  useClickOutSide(refProf, () => {
+    setShow(false);
+  });
   const { user } = useSelector((state) => ({ ...state }));
   const handleImage = (e) => {
     let file = e.target.files[0];
@@ -112,16 +112,16 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
               .slice(0, 5)}
           </div>
         </div>
+        {image && (
+          <UpdateProfilePicture
+            setImage={setImage}
+            image={image}
+            setError={setError}
+            setShow={setShow}
+            ppRef={ppRef}
+          />
+        )}
       </div>
-      {image && (
-        <UpdateProfilePicture
-          setImage={setImage}
-          image={image}
-          setError={setError}
-          setShow={setShow}
-          ppRef={ppRef}
-        />
-      )}
     </div>
   );
 };
