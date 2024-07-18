@@ -3,16 +3,24 @@ import useClickOutSide from "../../helpers/clickOutSide";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../helpers/getCroppedImg";
 import Public from "../../svg/public";
+import PulseLoader from "react-spinners/PulseLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadImages } from "../../functions/uploadImages";
+import { updatedCover, updateProf } from "../../functions/user";
+import { createPost } from "../../functions/post";
 
 const Cover = ({ cover, yourPage }) => {
   const [showUpdateCover, setShowUpdateCover] = useState(false);
+  const dispatch = useDispatch();
   const [coverPicture, setCoverPicture] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const coverRef = useRef(null);
   const refCoverIn = useRef(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const { user } = useSelector((state) => ({ ...state }));
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -59,6 +67,47 @@ const Cover = ({ cover, yourPage }) => {
   );
   const refCrooped = useRef(null);
   const [width, setWidth] = useState(null);
+
+  const updateCover = async () => {
+    try {
+      setLoading(true);
+      let img = await getCroppedImage();
+      let blobimg = await fetch(img).then((b) => b.blob());
+      const path = `${user.username}/coverPicture`;
+      let formData = new FormData();
+      formData.append("file", blobimg);
+      formData.append("path", path);
+      const res = await uploadImages(formData, path, user.token);
+      const cover_update = await updatedCover(res[0].url, user.token);
+      if (cover_update === "ok") {
+        const newPost = await createPost(
+          "coverPicture",
+          null,
+          null,
+          res,
+          user.id,
+          user.token
+        );
+        if (newPost === "ok") {
+          setLoading(false);
+          setCoverPicture("");
+          refCrooped.current.background = `url(${res[0].url})`;
+
+          dispatch({ type: "UPDATECOVER", payload: res[0].url });
+          setShowUpdateCover(false);
+        } else {
+          setError(newPost);
+        }
+      } else {
+        setLoading(false);
+        setError(cover_update);
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(error.response);
+    }
+  };
+
   useEffect(() => {
     setWidth(refCrooped.current.clientWidth);
   }, [window.innerWidth]);
@@ -72,8 +121,15 @@ const Cover = ({ cover, yourPage }) => {
             <span>your cover picture is public</span>
           </div>
           <div className="cover_right">
-            <button className="blue_btn opacity_btn">cancel</button>
-            <button className="blue_btn ">save changes</button>
+            <button
+              className="blue_btn opacity_btn"
+              onClick={() => setCoverPicture("")}
+            >
+              cancel
+            </button>
+            <button className="blue_btn" onClick={() => updateCover()}>
+              {loading ? <PulseLoader color="#fff" size={5} /> : "Save Changes"}
+            </button>
           </div>
         </div>
       )}

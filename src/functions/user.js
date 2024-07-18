@@ -11,3 +11,16 @@ export const updateProf = async (url, token) => {
     return error.response.data.message;
   }
 };
+
+export const updatedCover = async (url, token) => {
+  try {
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/updateCover`,
+      { url },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return "ok";
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

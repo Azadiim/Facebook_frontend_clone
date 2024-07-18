@@ -56,7 +56,7 @@ const UpdateProfilePicture = ({
       setLoading(true);
       let img = await getCroppedImage();
       let blobimg = await fetch(img).then((b) => b.blob());
-      const path = `${user.username}/profilePicture`;
+      const path = `${user.username}/coverPicture`;
       let formData = new FormData();
       formData.append("file", blobimg);
       formData.append("path", path);

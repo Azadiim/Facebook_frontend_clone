@@ -17,3 +17,6 @@ export const uploadImages = async (formData, path, token) => {
     return error.response;
   }
 };
+
+
+
