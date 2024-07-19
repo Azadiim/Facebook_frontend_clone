@@ -4,19 +4,20 @@ import Cropper from "react-easy-crop";
 import getCroppedImg from "../../helpers/getCroppedImg";
 import Public from "../../svg/public";
 import PulseLoader from "react-spinners/PulseLoader";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
 import { updatedCover, updateProf } from "../../functions/user";
 import { createPost } from "../../functions/post";
 
 const Cover = ({ cover, yourPage }) => {
   const [showUpdateCover, setShowUpdateCover] = useState(false);
-  const dispatch = useDispatch();
+
   const [coverPicture, setCoverPicture] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const coverRef = useRef(null);
   const refCoverIn = useRef(null);
+  const cRef = useRef(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -91,9 +92,7 @@ const Cover = ({ cover, yourPage }) => {
         if (newPost === "ok") {
           setLoading(false);
           setCoverPicture("");
-          refCrooped.current.background = `url(${res[0].url})`;
-
-          dispatch({ type: "UPDATECOVER", payload: res[0].url });
+          cRef.current.src = `${res[0].url}`;
           setShowUpdateCover(false);
         } else {
           setError(newPost);
@@ -168,7 +167,9 @@ const Cover = ({ cover, yourPage }) => {
           />
         </div>
       )}
-      {cover && <img src={cover} className="cover" alt="" />}
+      {cover && !coverPicture && (
+        <img src={cover} className="cover" alt="" ref={cRef} />
+      )}
       {yourPage && (
         <div className="update_cover_wrapper">
           <div

@@ -19,6 +19,10 @@
   border-bottom-right-radius: 10x;
   background: var(--bg-secondary);
 }
+.profile_cover img {
+ width: 100%;
+ object-fit:cover;
+}
 .update_cover_wrapper {
   position: absolute;
   bottom: 1rem;
