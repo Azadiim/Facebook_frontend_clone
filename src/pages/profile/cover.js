@@ -8,9 +8,11 @@ import { useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
 import { updatedCover, updateProf } from "../../functions/user";
 import { createPost } from "../../functions/post";
+import OldPic from "./OldPic";
 
-const Cover = ({ cover, yourPage }) => {
+const Cover = ({ cover, yourPage, photos }) => {
   const [showUpdateCover, setShowUpdateCover] = useState(false);
+  const [oldPic, setOldPic] = useState(false);
 
   const [coverPicture, setCoverPicture] = useState("");
   const [loading, setLoading] = useState(false);
@@ -185,10 +187,14 @@ const Cover = ({ cover, yourPage }) => {
           {showUpdateCover && (
             <div className="open_cover_menu">
               <div className="pay_attention_after" ref={coverRef}>
-                <div className="open_cover_menu_item hover1">
+                <div
+                  className="open_cover_menu_item hover1"
+                  onClick={() => setOldPic((prev) => !prev)}
+                >
                   <i className="photo_icon"></i>
                   Select photo
                 </div>
+                {oldPic && <OldPic photos={photos} setOldPic={setOldPic} setCoverPicture={setCoverPicture} setShowUpdateCover={setShowUpdateCover} />}
                 <div
                   className="open_cover_menu_item hover1"
                   onClick={() => {

@@ -15,6 +15,7 @@ import GridPosts from "./GridPosts";
 import Posts from "../../components/posts/Posts";
 import Photos from "./Photos";
 import Friends from "./Friends";
+import Intro from "../../components/introduction";
 
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
@@ -83,7 +84,7 @@ const Profile = ({ setPostVisible }) => {
       <Header page="profile" />
       <div className="profile_top">
         <div className="profile_container">
-          <Cover cover={profile.cover} yourPage={yourPage} />
+          <Cover cover={profile.cover} yourPage={yourPage} photos={photos} />
           <ProfileImageInfo
             profile={profile}
             yourPage={yourPage}
@@ -98,6 +99,7 @@ const Profile = ({ setPostVisible }) => {
             <PplYouMayKnow />
             <div className="profile_grid">
               <div className="profile_left">
+                <Intro details={user.details} />
                 <Photos
                   username={userName}
                   token={user.token}

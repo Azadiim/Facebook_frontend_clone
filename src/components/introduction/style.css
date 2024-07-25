@@ -1,0 +1,17 @@
+.Intro_header {
+  font-weight: 700;
+}
+.intro_details {
+  gap: 5px;
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 15px;
+}
+
+.intro_details img {
+  filter: invert(40%);
+}
+

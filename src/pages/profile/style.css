@@ -20,8 +20,8 @@
   background: var(--bg-secondary);
 }
 .profile_cover img {
- width: 100%;
- object-fit:cover;
+  width: 100%;
+  object-fit: cover;
 }
 .update_cover_wrapper {
   position: absolute;
@@ -374,7 +374,35 @@
   justify-content: center;
   align-items: center;
 }
+.create_post_box_header .small_circle_white {
+  background: var(--bg-third);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+.oldPic_cover {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.oldPic_cover img {
+  border-radius: 10px;
+  width: 130px !important;
+  height: 130px !important;
+}
+.oldPic_cover img:hover {
+  transform: scale(1.1);
+  transition: all 0.2s;
+  filter: brightness(1.1);
+}
 
+.pay_attention_after .create_post_box {
+  height: 90vh;
+}
 /*---filters ---*/
 .filter_blue {
   filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
@@ -501,7 +529,6 @@
 .cover_save_changes .cover_left svg {
   filter: invert(100%);
   transform: scale(120%);
-
 }
 
 /*-------left side photo profile-------*/
