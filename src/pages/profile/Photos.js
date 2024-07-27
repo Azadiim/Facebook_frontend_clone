@@ -3,11 +3,11 @@ import { photoReducer } from "../../functions/reducers";
 import axios from "axios";
 
 const Photos = ({ username, token, photos }) => {
-  
   let photoCount = {};
   if (photos && photos.resources) {
     photoCount = photos.resources;
   }
+  console.log("------",photoCount)
   return (
     <div className="photo_collection">
       <div className="photo_header">

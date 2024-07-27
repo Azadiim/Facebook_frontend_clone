@@ -14,4 +14,33 @@
 .intro_details img {
   filter: invert(40%);
 }
-
+.intro_details_bio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  color: var(--color-secondary);
+  font-size: 16px;
+}
+.intro_details_bio span {
+  margin-top: 10px;
+}
+.intro_details_bio button {
+  width: 100%;
+  font-weight: 600;
+}
+.intro_details_bio .gray_btn:hover{
+  filter: brightness(90%);
+}
+.btn_collection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.btn_collection button {
+  font-weight: 600;
+}
+.btn_collection .gray_btn:hover {
+  filter: brightness(0.9);
+}

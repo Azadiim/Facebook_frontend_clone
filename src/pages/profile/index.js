@@ -34,10 +34,10 @@ const Profile = ({ setPostVisible }) => {
   });
 
   const yourPage = userName === user.username ? true : false;
-
   useEffect(() => {
     getProfile();
-  }, [userName]);
+  }, []);
+
   const getProfile = async () => {
     try {
       dispatch({
@@ -54,6 +54,10 @@ const Profile = ({ setPostVisible }) => {
         navigate("/profile");
       } else {
         try {
+          dispatch({
+            type: "PROFILE_SUCCESS",
+            payload: data,
+          });
           const img = await axios.post(
             `${process.env.REACT_APP_BACKEND_URL}/listImages`,
             { path, max, sort },
@@ -61,15 +65,11 @@ const Profile = ({ setPostVisible }) => {
               headers: { Authorization: `Bearer ${user.token}` },
             }
           );
-          console.log(img.data);
+          console.log(img)
           setPhotos(img.data);
         } catch (error) {
           console.log(error);
         }
-        dispatch({
-          type: "PROFILE_SUCCESS",
-          payload: data,
-        });
       }
     } catch (error) {
       dispatch({
@@ -99,7 +99,7 @@ const Profile = ({ setPostVisible }) => {
             <PplYouMayKnow />
             <div className="profile_grid">
               <div className="profile_left">
-                <Intro details={user.details} />
+                <Intro details={profile.details} yourPage={yourPage} />
                 <Photos
                   username={userName}
                   token={user.token}

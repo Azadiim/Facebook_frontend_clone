@@ -6,7 +6,7 @@ const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
   const handleClick = (photo) => {
     setOldPic(false);
     setCoverPicture(photo.secure_url);
-    setShowUpdateCover(false)
+    setShowUpdateCover(false);
   };
   const refOld = useRef(null);
   useClickOutSide(refOld, () => {
@@ -23,18 +23,19 @@ const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
           </div>
         </div>
         <div className="oldPic_cover">
-          {photos?.resources
-            .filter((img) => img.folder === `${user.username}/profilePicture`)
-            .slice(1, 10)
-            .map((photo) => (
-              <img
-                onClick={() => handleClick(photo)}
-                src={photo.secure_url}
-                key={photo.public_id}
-                alt="Old profile pictures"
-                style={{ width: "100px" }}
-              />
-            ))}
+          {photos.resources &&
+            photos.resources
+              .filter((img) => img.folder === `${user.username}/profilePicture`)
+              .slice(1, 10)
+              .map((photo) => (
+                <img
+                  onClick={() => handleClick(photo)}
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt="Old profile pictures"
+                  style={{ width: "100px" }}
+                />
+              ))}
           {photos?.resources
             .filter((img) => img.folder === `${user.username}/coverPicture`)
             .slice(1, 10)

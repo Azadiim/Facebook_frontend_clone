@@ -1,9 +1,9 @@
 import "./style.css";
 import { useState } from "react";
 
-const Intro = ({ details }) => {
+const Intro = ({ details, yourPage }) => {
   const initial = {
-    bio: details?.bio ? details.bio : "Life is wonderful, If you have plan",
+    bio: details?.bio ? details.bio : "Welcome to my bio",
     otherName: details?.otherName ? details.otherName : "",
     job: details?.job ? details.job : "Full-Stack Developer",
     workplace: details?.workplace ? details.workplace : "google",
@@ -20,6 +20,12 @@ const Intro = ({ details }) => {
       <div className="photo_header">
         <span className="Intro_header">Intro</span>
       </div>
+      {intro.bio && (
+        <div className="intro_details_bio">
+          <span>{intro.bio}</span>
+          {yourPage && <button className="gray_btn">Edit bio</button>}
+        </div>
+      )}
       {intro.job && intro.workplace ? (
         <div className="intro_details">
           <img
@@ -92,15 +98,6 @@ const Intro = ({ details }) => {
           <span>{intro.relationship}</span>
         </div>
       )}
-      {intro.bio && (
-        <div className="intro_details">
-          <img
-            src="https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938971/icons/report_cuihzd.png"
-            alt=""
-          />
-          <span>{intro.bio}</span>
-        </div>
-      )}
       {intro.instagram && (
         <div className="intro_details">
           <img
@@ -115,6 +112,11 @@ const Intro = ({ details }) => {
           </a>
         </div>
       )}
+      <div className="btn_collection">
+        {yourPage && <button className="gray_btn">Edit Details</button>}
+        {yourPage && <button className="gray_btn">Add Hobbies</button>}
+        {yourPage && <button className="gray_btn">Edit Featured</button>}
+      </div>
     </div>
   );
 };
