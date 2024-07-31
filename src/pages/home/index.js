@@ -1,13 +1,17 @@
-import { useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import Header from "../../components/header";
 import useClickOutSide from "../../helpers/clickOutSide";
 import LeftHome from "../../components/home/left";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RightHome from "../../components/home/right";
 import Story from "../../components/home/story";
 import CreatePost from "../../components/createPost";
 import "./style.css";
 import Posts from "../../components/posts/Posts";
+import Cookies from "js-cookie";
+
+import axios from "axios";
+import { picsReducer } from "../../reducers/userReducer";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
@@ -16,6 +20,31 @@ const Home = ({ setPostVisible, posts }) => {
   useClickOutSide(el, () => {
     setVisible(false);
   });
+  const dispatch = useDispatch();
+  const [pics, setPics] = useState([]);
+  useEffect(() => {
+    getAllPics();
+  }, []);
+
+  const path = `${user.username}/*`;
+  const max = 30;
+  const sort = "desc";
+
+  const getAllPics = async () => {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/listImages`,
+      { path, max, sort },
+      {
+        headers: { Authorization: `Bearer ${user.token}` },
+      }
+    );
+    setPics(data);
+    dispatch({
+      type: "DOWNLOAD",
+      payload: data,
+    });
+  };
+  console.log("*****************", pics);
 
   return (
     <>

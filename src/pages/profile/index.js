@@ -23,10 +23,13 @@ const Profile = ({ setPostVisible }) => {
   const [photos, setPhotos] = useState({});
 
   const { user } = useSelector((state) => ({ ...state }));
+
   const userName = username === undefined ? user.username : username;
+
   const path = `${userName}/*`;
   const max = 30;
   const sort = "desc";
+
   const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
     loading: false,
     profile: {},
@@ -53,23 +56,18 @@ const Profile = ({ setPostVisible }) => {
       if (data.profileExist === false) {
         navigate("/profile");
       } else {
-        try {
-          dispatch({
-            type: "PROFILE_SUCCESS",
-            payload: data,
-          });
-          const img = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/listImages`,
-            { path, max, sort },
-            {
-              headers: { Authorization: `Bearer ${user.token}` },
-            }
-          );
-          console.log(img)
-          setPhotos(img.data);
-        } catch (error) {
-          console.log(error);
-        }
+        dispatch({
+          type: "PROFILE_SUCCESS",
+          payload: data,
+        });
+        const { datat } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/listImages`,
+          { path, max, sort },
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
+        console.log(datat);
       }
     } catch (error) {
       dispatch({
@@ -78,6 +76,7 @@ const Profile = ({ setPostVisible }) => {
       });
     }
   };
+  console.log(profile);
 
   return (
     <div className="profile">
@@ -100,11 +99,7 @@ const Profile = ({ setPostVisible }) => {
             <div className="profile_grid">
               <div className="profile_left">
                 <Intro details={profile.details} yourPage={yourPage} />
-                <Photos
-                  username={userName}
-                  token={user.token}
-                  photos={photos}
-                />
+                <Photos username={userName} token={userName.token} />
                 <Friends friends={profile.friends} />
               </div>
               <div className="profile_right">

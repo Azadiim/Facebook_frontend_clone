@@ -36,17 +36,19 @@ const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
                   style={{ width: "100px" }}
                 />
               ))}
-          {photos?.resources
-            .filter((img) => img.folder === `${user.username}/coverPicture`)
-            .slice(1, 10)
-            .map((photo) => (
-              <img
-                src={photo.secure_url}
-                key={photo.public_id}
-                alt="Old profile pictures"
-                style={{ width: "100px" }}
-              />
-            ))}
+          {photos.resources && console.log("mmmmm",photos.resources)}
+          {photos.resources &&
+            photos.resources
+              .filter((img) => img.folder === `${user.username}/coverPicture`)
+              .slice(1, 10)
+              .map((photo) => (
+                <img
+                  src={photo.secure_url}
+                  key={photo.public_id}
+                  alt="Old profile pictures"
+                  style={{ width: "100px" }}
+                />
+              ))}
         </div>
       </div>
     </div>

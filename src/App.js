@@ -13,15 +13,18 @@ import axios from "axios";
 import { postReducer } from "./functions/reducers";
 
 function App() {
+  const [postVisible, setPostVisible] = useState(false);
+  const { user } = useSelector((state) => ({ ...state }));
+
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
   const [{ loading, posts, error }, dispatch] = useReducer(postReducer, {
     loading: false,
     posts: [],
     error: "",
   });
-  useEffect(() => {
-    getAllPosts();
-  }, []);
-
   const getAllPosts = async () => {
     try {
       dispatch({
@@ -44,8 +47,9 @@ function App() {
       });
     }
   };
-  const [postVisible, setPostVisible] = useState(false);
-  const { user } = useSelector((state) => ({ ...state }));
+
+
+
   return (
     <div>
       {postVisible && (

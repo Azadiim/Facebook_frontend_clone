@@ -18,5 +18,13 @@ const userReducer = (
       return state;
   }
 };
+const picsReducer = (state = [], action) => {
+  switch (action.type) {
+    case "DOWNLOAD":
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+};
 
-export { userReducer };
+export { userReducer, picsReducer };
