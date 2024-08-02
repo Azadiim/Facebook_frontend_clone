@@ -11,7 +11,6 @@ import Posts from "../../components/posts/Posts";
 import Cookies from "js-cookie";
 
 import axios from "axios";
-import { picsReducer } from "../../reducers/userReducer";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
@@ -44,7 +43,6 @@ const Home = ({ setPostVisible, posts }) => {
       payload: data,
     });
   };
-  console.log("*****************", pics);
 
   return (
     <>

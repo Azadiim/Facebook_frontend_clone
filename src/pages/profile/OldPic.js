@@ -2,7 +2,12 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import useClickOutSide from "../../helpers/clickOutSide";
 
-const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
+const OldPic = ({ setOldPic, setCoverPicture, setShowUpdateCover }) => {
+  let photos = {};
+  const { pics } = useSelector((pics) => ({ ...pics }));
+  if (pics[0].resources && pics[0].resources.length !== 0) {
+    photos = pics[0].resources;
+  }
   const handleClick = (photo) => {
     setOldPic(false);
     setCoverPicture(photo.secure_url);
@@ -22,11 +27,12 @@ const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
             <i className="exit_icon"></i>
           </div>
         </div>
-        <div className="oldPic_cover">
-          {photos.resources &&
-            photos.resources
+        <div className="cover_info">Old Profile Pictures</div>
+        <div className="oldPic_cover_profile">
+          {photos &&
+            photos
               .filter((img) => img.folder === `${user.username}/profilePicture`)
-              .slice(1, 10)
+              .slice(0, 10)
               .map((photo) => (
                 <img
                   onClick={() => handleClick(photo)}
@@ -36,11 +42,15 @@ const OldPic = ({ photos, setOldPic, setCoverPicture, setShowUpdateCover }) => {
                   style={{ width: "100px" }}
                 />
               ))}
-          {photos.resources && console.log("mmmmm",photos.resources)}
-          {photos.resources &&
-            photos.resources
+        </div>
+        <div className="splitter">
+        </div>
+        <div className="cover_info">Old Cover Pictures</div>
+        <div className="oldPic_cover_cover">
+          {photos &&
+            photos
               .filter((img) => img.folder === `${user.username}/coverPicture`)
-              .slice(1, 10)
+              .slice(0, 10)
               .map((photo) => (
                 <img
                   src={photo.secure_url}

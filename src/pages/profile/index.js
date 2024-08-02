@@ -60,14 +60,6 @@ const Profile = ({ setPostVisible }) => {
           type: "PROFILE_SUCCESS",
           payload: data,
         });
-        const { datat } = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/listImages`,
-          { path, max, sort },
-          {
-            headers: { Authorization: `Bearer ${user.token}` },
-          }
-        );
-        console.log(datat);
       }
     } catch (error) {
       dispatch({
@@ -76,7 +68,7 @@ const Profile = ({ setPostVisible }) => {
       });
     }
   };
-  console.log(profile);
+
 
   return (
     <div className="profile">

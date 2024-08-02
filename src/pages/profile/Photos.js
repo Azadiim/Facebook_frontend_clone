@@ -1,16 +1,11 @@
-import { useEffect, useReducer } from "react";
-import { photoReducer } from "../../functions/reducers";
-
-import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Photos = ({ username, token }) => {
   const { pics } = useSelector((pics) => ({ ...pics }));
-
-  console.log("@@@@@@", pics[0].resources);
+  console.log("@@@@", pics[0].resources);
 
   let photoCount = {};
-  if (pics && pics[0].resources) {
+  if (pics[0].resources && pics[0].resources.length !== 0) {
     photoCount = pics[0].resources;
   }
   return (
