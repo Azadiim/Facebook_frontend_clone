@@ -1,3 +1,4 @@
+import Bio from "./bio";
 import "./style.css";
 import { useState } from "react";
 
@@ -15,16 +16,36 @@ const Intro = ({ details, yourPage }) => {
     instagram: details?.instagram ? details.instagram : "azad_am88",
   };
   const [intro, setIntro] = useState(initial);
+  const [showBio, setShowBio] = useState(true);
+  const [max, setMax] = useState(intro?.bio ? 100 - intro.bio.length : 100);
+
+  const handleBio = (e) => {
+    setIntro({ ...intro, bio: e.target.value });
+    setMax(100 - e.target.value.length);
+  };
+
   return (
     <div className="photo_collection">
       <div className="photo_header">
         <span className="Intro_header">Intro</span>
       </div>
-      {intro.bio && (
+      {intro.bio && !showBio && (
         <div className="intro_details_bio">
           <span>{intro.bio}</span>
-          {yourPage && <button className="gray_btn">Edit bio</button>}
+          {yourPage && (
+            <button
+              className="gray_btn"
+              onClick={() => {
+                setShowBio(true);
+              }}
+            >
+              Edit bio
+            </button>
+          )}
         </div>
+      )}
+      {showBio && (
+        <Bio setShowBio={setShowBio} max={max} handleBio={handleBio} />
       )}
       {intro.job && intro.workplace ? (
         <div className="intro_details">

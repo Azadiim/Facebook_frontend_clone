@@ -29,7 +29,7 @@
   width: 100%;
   font-weight: 600;
 }
-.intro_details_bio .gray_btn:hover{
+.intro_details_bio .gray_btn:hover {
   filter: brightness(90%);
 }
 .btn_collection {
@@ -42,5 +42,55 @@
   font-weight: 600;
 }
 .btn_collection .gray_btn:hover {
+  filter: brightness(0.9);
+}
+.bio_wrap .textarea_blue:focus {
+  outline-offset: 0px;
+  outline-color: var(--blue-color);
+  outline-width: 0.5px;
+}
+.bio_wrap .textarea_blue {
+  margin-top: 10px;
+  background: var(--bg-secondary);
+}
+.bio_wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.bio_wrap .textarea_blue {
+}
+.bio_wrap .bio_remaining {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: var(--color-secondary);
+  margin-top: 5px;
+}
+.bio_wrap .bio_save {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.bio_wrap .bio_save .left {
+  gap: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.bio_wrap .bio_save .left span {
+  color: var(--color-secondary);
+}
+.bio_wrap .bio_save .right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.bio_wrap .bio_save .right button {
+  font-weight: 600;
+  font-size: 14px;
+}
+.bio_wrap .bio_save .right button:hover {
   filter: brightness(0.9);
 }
