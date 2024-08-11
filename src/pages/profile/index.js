@@ -69,7 +69,6 @@ const Profile = ({ setPostVisible }) => {
     }
   };
 
-
   return (
     <div className="profile">
       <Header page="profile" />
@@ -90,7 +89,7 @@ const Profile = ({ setPostVisible }) => {
             <PplYouMayKnow />
             <div className="profile_grid">
               <div className="profile_left">
-                <Intro details={profile.details} yourPage={yourPage} />
+                <Intro detailss={profile.details} yourPage={yourPage} />
                 <Photos username={userName} token={userName.token} />
                 <Friends friends={profile.friends} />
               </div>

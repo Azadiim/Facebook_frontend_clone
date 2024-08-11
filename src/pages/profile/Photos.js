@@ -2,10 +2,9 @@ import { useSelector } from "react-redux";
 
 const Photos = ({ username, token }) => {
   const { pics } = useSelector((pics) => ({ ...pics }));
-  console.log("@@@@", pics[0].resources);
-
+  
   let photoCount = {};
-  if (pics[0].resources && pics[0].resources.length !== 0) {
+  if (pics[0]?.resources && pics[0]?.resources.length !== 0) {
     photoCount = pics[0].resources;
   }
   return (

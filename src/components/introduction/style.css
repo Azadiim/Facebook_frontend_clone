@@ -94,3 +94,50 @@
 .bio_wrap .bio_save .right button:hover {
   filter: brightness(0.9);
 }
+.other_header {
+  display: grid;
+  grid-template-columns: 17fr 1fr !important;
+  padding: 10px 0 !important;
+}
+.body_other_details {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.body_other_details .customize {
+}
+.body_other_details .customize .custom_header {
+  font-weight: 700;
+  font-size: 14px;
+}
+.body_other_details .customize .body {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.body_other_details .general_Details {
+  padding: 5px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 10px;
+
+}
+
+.body_other_details .general_Details .inner {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  
+}
+
+.filter_blue {
+  filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
+    saturate(200%) saturate(200%) saturate(147.75%) hue-rotate(202deg)
+    brightness(97%) contrast(96%);
+}

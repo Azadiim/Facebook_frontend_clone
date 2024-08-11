@@ -1,8 +1,10 @@
 import React from "react";
 import Public from "../../svg/public";
 
-const Bio = ({ setShowBio, handleBio, max }) => {
+const Bio = ({ setShowBio, handleBio, max, handleUpdatedBio }) => {
+ 
   const color = "#65676b"; //var(--color-secondary)
+
   return (
     <div className="bio_wrap">
       <textarea
@@ -27,7 +29,9 @@ const Bio = ({ setShowBio, handleBio, max }) => {
           >
             Cancel
           </button>
-          <button className="blue_btn">Save</button>
+          <button className="blue_btn" onClick={() => handleUpdatedBio()}>
+            Save
+          </button>
         </div>
       </div>
     </div>
