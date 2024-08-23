@@ -8,9 +8,12 @@ import OtherDetails from "./otherDetails";
 const Intro = ({ detailss, yourPage }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const [details, setDetails] = useState(detailss);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setDetails(detailss);
+    setIntro(detailss);
   }, [detailss]);
+
   const initial = {
     bio: details?.bio ? details.bio : "",
     otherName: details?.otherName ? details.otherName : "",
@@ -24,15 +27,17 @@ const Intro = ({ detailss, yourPage }) => {
     instagram: details?.instagram ? details.instagram : "",
   };
 
-  const [intro, setIntro] = useState(initial);
+  const [intro, setIntro] = useState({ initial });
   const [showBio, setShowBio] = useState(false);
   const [other, setOther] = useState(false);
   const [max, setMax] = useState(intro?.bio ? 100 - intro.bio.length : 100);
 
   const handleBio = (e) => {
-    setIntro({ ...intro, bio: e.target.value });
-    setMax(100 - e.target.value.length);
+    const { name, value } = e.target;
+    setIntro({ ...intro, [name]: value });
+    setMax(100 - value.length);
   };
+
   const handleUpdatedBio = async () => {
     try {
       const { data } = await axios.put(
@@ -45,11 +50,11 @@ const Intro = ({ detailss, yourPage }) => {
 
       setShowBio(false);
       setDetails(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log("intro", intro);
 
   return (
     <div className="photo_collection">
@@ -82,6 +87,11 @@ const Intro = ({ detailss, yourPage }) => {
           handleBio={handleBio}
           intro={intro}
           handleUpdatedBio={handleUpdatedBio}
+          name="bio"
+          placeholder="Your bio"
+          showBio={showBio}
+          loading={loading}
+          setLoading={setLoading}
         />
       )}
       {details?.job && details?.workplace ? (
@@ -178,7 +188,19 @@ const Intro = ({ detailss, yourPage }) => {
             Edit Details
           </button>
         )}
-        {other && <OtherDetails setOther={setOther} />}
+        {other && (
+          <OtherDetails
+            setOther={setOther}
+            setShowBio={setShowBio}
+            handleUpdatedBio={handleUpdatedBio}
+            intro={intro}
+            details={details}
+            handleBio={handleBio}
+            showBio={showBio}
+            loading={loading}
+            setLoading={setLoading}
+          />
+        )}
         {yourPage && <button className="gray_btn">Add Hobbies</button>}
         {yourPage && <button className="gray_btn">Edit Featured</button>}
       </div>

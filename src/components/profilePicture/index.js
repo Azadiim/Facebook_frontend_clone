@@ -3,7 +3,12 @@ import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutSide from "../../helpers/clickOutSide";
 import { useSelector } from "react-redux";
-const ProfilePicture = ({ setShow, ppRef, photos }) => {
+const ProfilePicture = ({ setShow, ppRef }) => {
+  let photos = {};
+  const { pics } = useSelector((pics) => ({ ...pics }));
+  if (pics[0].resources && pics[0].resources.length !== 0) {
+    photos = pics[0].resources;
+  }
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");

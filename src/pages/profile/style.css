@@ -224,10 +224,11 @@
 }
 
 .profile_bottom .profile_bottom_container .btm_container {
-  max-width: 945px;
+  max-width: 70vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
 .ppl_you_know {
@@ -235,7 +236,7 @@
   padding: 10px 15px;
   margin-top: 10px;
   border-radius: 10px;
-  width: 945px;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
 }
@@ -264,19 +265,19 @@
 
 .ppl_you_know .ppl_you_know_list {
   display: flex;
-
   gap: 5px;
   height: 250px;
   justify-content: start;
   align-items: center;
 }
 .add_friend_card {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
   background: var(--bg-primary);
   border-radius: 10px;
   position: relative;
+  width: fit-content;
   height: 100%;
+  padding: 5px;
 }
 .add_friend_card .add_friend_imgsmall {
   display: flex;
@@ -284,7 +285,8 @@
   align-items: center;
   flex-direction: column;
   gap: 5px;
-  width: 150px;
+  width: 100px;
+
   height: 240px;
 }
 .add_friend_card .add_friend_imgsmall .add_friend {
@@ -292,9 +294,9 @@
   padding: 5px 5px;
   border-radius: 5px;
   color: var(--blue-color);
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 600;
-  width: 120px;
+  width: 95%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -306,7 +308,7 @@
 }
 
 .add_friend_card .add_friend_imgsmall img {
-  width: 150px;
+  width: 95%;
   height: 178px;
   object-fit: cover;
   border-radius: 5px;
@@ -405,16 +407,17 @@
   width: 130px !important;
   height: 130px !important;
 }
-.cover_info{
+.cover_info {
   padding: 10px;
   color: var(--color-secondary);
   font-size: 12px;
 }
-.create_post_box .splitter{
+.create_post_box .splitter {
   width: 95%;
-  border: .5px solid var(--bg-third);
+  border: 0.5px solid var(--bg-third);
 }
-.oldPic_cover_profile img:hover , .oldPic_cover_cover img:hover {
+.oldPic_cover_profile img:hover,
+.oldPic_cover_cover img:hover {
   transform: scale(1.1);
   transition: all 0.2s;
   filter: brightness(1.1);
@@ -473,7 +476,7 @@
 .photo_collection .photo_body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 3px;
   margin-top: 10px;
 }
 .photo_collection .photo_body .grid_photo {
@@ -482,7 +485,7 @@
   cursor: pointer;
 }
 .photo_collection .photo_body .grid_photo img {
-  width: 100%;
+  width: 90px;
   height: 105px;
   object-fit: cover;
   border-radius: 10px;
@@ -576,15 +579,19 @@
     display: grid;
     grid-template-columns: 1fr;
   }
-  .profile_left {
+}
+@media (max-width: 820px) {
+  .photo_collection {
+    max-width: 70%;
+    margin: 10px auto;
+    padding: 10px;
   }
   .profile_right {
-  }
-  .btm_container {
+    max-width: 70%;
+    margin: 0px auto;
   }
   .profile_bottom_container {
-  }
-  .profile_bottom {
+    width: 70%;
   }
 }
 

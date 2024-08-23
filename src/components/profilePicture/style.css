@@ -142,7 +142,7 @@
 .old_picture_wrap > .splitter {
   margin: 10px;
   width: 89.3%;
-  border: .5px solid var(--bg-third);
+  border: 0.5px solid var(--bg-third);
 }
 .old_picture_wrap .pptuned_profile {
   padding: 10px;
@@ -164,4 +164,12 @@
 }
 .pptuned_non_profile img {
   border-radius: 5px;
+}
+
+@media (max-width: 700px) {
+  .create_post_box {
+    width: 95% !important;
+    overflow-y: scroll;
+  }
+
 }
