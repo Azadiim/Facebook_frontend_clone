@@ -6,7 +6,7 @@ const Photos = ({ username, token }) => {
   let photoCount = {};
   if (pics[0]?.resources && pics[0]?.resources.length !== 0) {
     photoCount = pics[0].resources;
-  }
+  } 
   return (
     <div className="photo_collection">
       <div className="photo_header">

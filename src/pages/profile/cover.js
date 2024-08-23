@@ -10,7 +10,7 @@ import { updatedCover, updateProf } from "../../functions/user";
 import { createPost } from "../../functions/post";
 import OldPic from "./OldPic";
 
-const Cover = ({ cover, yourPage, photos }) => {
+const Cover = ({ cover, yourPage }) => {
   const [showUpdateCover, setShowUpdateCover] = useState(false);
   const [oldPic, setOldPic] = useState(false);
 
@@ -194,7 +194,7 @@ const Cover = ({ cover, yourPage, photos }) => {
                   <i className="photo_icon"></i>
                   Select photo
                 </div>
-                {oldPic && <OldPic photos={photos} setOldPic={setOldPic} setCoverPicture={setCoverPicture} setShowUpdateCover={setShowUpdateCover} />}
+                {oldPic && <OldPic setOldPic={setOldPic} setCoverPicture={setCoverPicture} setShowUpdateCover={setShowUpdateCover} />}
                 <div
                   className="open_cover_menu_item hover1"
                   onClick={() => {

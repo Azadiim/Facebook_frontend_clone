@@ -485,7 +485,7 @@
   cursor: pointer;
 }
 .photo_collection .photo_body .grid_photo img {
-  width: 90px;
+  width: 150px;
   height: 105px;
   object-fit: cover;
   border-radius: 10px;

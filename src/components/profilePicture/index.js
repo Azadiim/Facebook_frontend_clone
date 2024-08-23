@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutSide from "../../helpers/clickOutSide";
@@ -9,6 +9,7 @@ const ProfilePicture = ({ setShow, ppRef }) => {
   if (pics[0].resources && pics[0].resources.length !== 0) {
     photos = pics[0].resources;
   }
+  
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +22,7 @@ const ProfilePicture = ({ setShow, ppRef }) => {
     let file = e.target.files[0];
     if (
       file.type !== "image/jpeg" &&
-      file.type !== "image/webp" &&
+      file.type !== "image/webp" && 
       file.type !== "image.gif" &&
       file.type !== "image.png"
     ) {
@@ -88,17 +89,21 @@ const ProfilePicture = ({ setShow, ppRef }) => {
         <div className="old_picture_wrap">
           <span>Old profile Picture</span>
           <div className="pptuned_profile">
-            {photos
-              .filter((img) => img.folder === `${user.username}/profilePicture`)
-              .map((photo) => (
-                <img
-                  onClick={() => setImage(photo.secure_url)}
-                  src={photo.secure_url}
-                  key={photo.public_id}
-                  alt="Old profile pictures"
-                  style={{ width: "100px" }}
-                />
-              ))}
+            {photos &&
+              photos.length &&
+              photos
+                .filter(
+                  (img) => img.folder === `${user.username}/profilePicture`
+                )
+                .map((photo) => (
+                  <img
+                    onClick={() => setImage(photo.secure_url)}
+                    src={photo.secure_url}
+                    key={photo.public_id}
+                    alt="Old profile pictures"
+                    style={{ width: "100px" }}
+                  />
+                ))}
           </div>
           <div className="splitter"></div>
           <span>Old Other Picture</span>
