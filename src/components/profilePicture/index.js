@@ -3,7 +3,7 @@ import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutSide from "../../helpers/clickOutSide";
 import { useSelector } from "react-redux";
-const ProfilePicture = ({ setShow, ppRef, photos }) => {
+const ProfilePicture = ({ setShow, ppRef, pics }) => {
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
       setError("The file is too large. max size 5mb is allowed");
       return;
     }
-
+    console.log(pics[0]);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
@@ -83,8 +83,10 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
         <div className="old_picture_wrap">
           <span>Old profile Picture</span>
           <div className="pptuned_profile">
-            {photos
-              .filter((img) => img.folder === `${user.username}/profilePicture`)
+            {pics
+              ?.filter(
+                (img) => img.folder === `${user.username}/profilePicture`
+              )
               .map((photo) => (
                 <img
                   onClick={() => setImage(photo.secure_url)}
@@ -98,8 +100,10 @@ const ProfilePicture = ({ setShow, ppRef, photos }) => {
           <div className="splitter"></div>
           <span>Old Other Picture</span>
           <div className="pptuned_non_profile">
-            {photos
-              .filter((img) => img.folder !== `${user.username}/profilePicture`)
+            {pics
+              ?.filter(
+                (img) => img.folder !== `${user.username}/profilePicture`
+              )
               .map((photo) => (
                 <img
                   onClick={() => setImage(photo.secure_url)}

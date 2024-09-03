@@ -8,19 +8,20 @@ import Story from "../../components/home/story";
 import CreatePost from "../../components/createPost";
 import "./style.css";
 import Posts from "../../components/posts/Posts";
-import Cookies from "js-cookie";
 
 import axios from "axios";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const { user } = useSelector((user) => ({ ...user }));
   useClickOutSide(el, () => {
     setVisible(false);
   });
-  const dispatch = useDispatch();
+
   const [pics, setPics] = useState([]);
+
   useEffect(() => {
     getAllPics();
   }, []);
@@ -37,7 +38,7 @@ const Home = ({ setPostVisible, posts }) => {
         headers: { Authorization: `Bearer ${user.token}` },
       }
     );
-    setPics(data);
+    setPics("_______________>",data);
     dispatch({
       type: "DOWNLOAD",
       payload: data,

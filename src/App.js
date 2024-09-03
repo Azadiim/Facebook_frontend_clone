@@ -16,10 +16,6 @@ function App() {
   const [postVisible, setPostVisible] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
-
-  useEffect(() => {
-    getAllPosts();
-  }, []);
   const [{ loading, posts, error }, dispatch] = useReducer(postReducer, {
     loading: false,
     posts: [],
@@ -30,6 +26,7 @@ function App() {
       dispatch({
         type: "POSTS_REQUEST",
       });
+
       const { data } = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/getAllPosts`,
         {
@@ -47,8 +44,9 @@ function App() {
       });
     }
   };
-
-
+  useEffect(() => {
+    getAllPosts();
+  }, []);
 
   return (
     <div>

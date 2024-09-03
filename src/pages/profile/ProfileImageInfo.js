@@ -1,14 +1,22 @@
 import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profilePicture";
+import { useSelector } from "react-redux";
 
-const ProfileImageInfo = ({ profile, yourPage, photos }) => {
+const ProfileImageInfo = ({ profile, yourPage }) => {
   const [show, setShow] = useState(false);
   const ppRef = useRef(null);
+  const { pics } = useSelector((pics) => ({ ...pics }));
+  console.log("****\n***\n**\n*", pics[0].resources);
+
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
         {show && (
-          <ProfilePicture setShow={setShow} ppRef={ppRef} photos={photos} />
+          <ProfilePicture
+            setShow={setShow}
+            ppRef={ppRef}
+            pics={pics[0].resources}
+          />
         )}
         <div className="profile_camera" onClick={() => setShow(true)}>
           <div
