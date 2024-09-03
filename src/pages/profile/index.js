@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { profileReducer } from "../../functions/reducers";
 import Header from "../../components/header";
 import axios from "axios";
@@ -23,12 +23,18 @@ const Profile = ({ setPostVisible }) => {
   const [photos, setPhotos] = useState({});
 
   const { user } = useSelector((state) => ({ ...state }));
+  const { pics } = useSelector((pics) => ({ ...pics }));
+
+  const makePicReady = () => {
+    if (pics.length !== 0) {
+      setPhotos(pics);
+      console.log("****", pics[0].resources);
+    } else {
+      navigate("/");
+    }
+  };
 
   const userName = username === undefined ? user.username : username;
-
-  const path = `${userName}/*`;
-  const max = 30;
-  const sort = "desc";
 
   const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
     loading: false,
@@ -37,9 +43,6 @@ const Profile = ({ setPostVisible }) => {
   });
 
   const yourPage = userName === user.username ? true : false;
-  useEffect(() => {
-    getProfile();
-  }, []);
 
   const getProfile = async () => {
     try {
@@ -68,13 +71,17 @@ const Profile = ({ setPostVisible }) => {
       });
     }
   };
+  useEffect(() => {
+    getProfile();
+    makePicReady();
+  }, []);
 
   return (
     <div className="profile">
       <Header page="profile" />
       <div className="profile_top">
         <div className="profile_container">
-          <Cover cover={profile.cover} yourPage={yourPage} photos={photos} />
+          <Cover cover={profile.cover} yourPage={yourPage} />
           <ProfileImageInfo
             profile={profile}
             yourPage={yourPage}

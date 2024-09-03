@@ -123,7 +123,7 @@
   font-size: 16px;
   font-weight: 700;
   gap: 10px;
-
+  cursor: pointer;
 }
 
 .body_other_details .general_Details .inner {
@@ -133,9 +133,35 @@
   align-items: center;
   font-size: 12px;
   font-weight: 500;
-  
 }
 
+.general_Details .inner .rounded_plus_icon {
+  scale: 0.6;
+}
+.value_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-secondary);
+  padding: 10px;
+}
+.value_block .edit {
+  cursor: pointer;
+}
+.value_block .value {
+  display: flex;
+  gap: 10px;
+  color: var(--color-secondary);
+}
+.rel_profile {
+  outline: none;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  background: var(--bg-secondary);
+  padding: 5px 5px 8px 5px;
+  margin-top: 5px;
+}
 .filter_blue {
   filter: invert(39%) sepia(57%) saturate(200%) saturate(200%) saturate(200%)
     saturate(200%) saturate(200%) saturate(147.75%) hue-rotate(202deg)

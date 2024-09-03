@@ -1,9 +1,26 @@
-import React from "react";
+import { useRef, useState } from "react";
+import InnerDetails from "./innerDetails";
+import useClickOutSide from "../../helpers/clickOutSide";
 
-const OtherDetails = ({ setOther }) => {
+const OtherDetails = ({
+  setOther,
+  handleUpdatedBio,
+  handleBio,
+  details,
+  showBio,
+  loading,
+  setLoading,
+  intro,
+}) => {
+  const refIntro = useRef(null);
+  useClickOutSide(refIntro, () => {
+    setOther(false);
+  });
+  const [visible, setVisible] = useState(0);
+
   return (
     <div className="blur">
-      <div className="create_post_box pictureBox">
+      <div className="create_post_box pictureBox" ref={refIntro}>
         <div className="create_post_box_header other_header">
           <span>Edit Details</span>
           <div
@@ -20,62 +37,147 @@ const OtherDetails = ({ setOther }) => {
             <div className="custom_header">Customize Your Intro</div>
             <div className="body">Details you selected will be public</div>
           </div>
-          <div className="general_Details">
-            <span>Other Name</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add Other Name</span>
-            </div>
+
+          <div className="othername" onClick={() => setVisible(1)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.otherName}
+              header={"otherName"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938961/icons/job_i7ocx5.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>Work</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add a job title</span>
-            </div>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add a workplace</span>
-            </div>
+
+          <div className="job" onClick={() => setVisible(2)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.job}
+              header={"Job Title"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938961/icons/job_i7ocx5.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>Education</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add a hightSchool</span>
-            </div>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add a college</span>
-            </div>
+          <div className="workplace" onClick={() => setVisible(3)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.workplace}
+              header={"Work Place"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938961/icons/job_i7ocx5.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>Current City</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add your current city</span>
-            </div>
+          <div className="college" onClick={() => setVisible(4)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.college}
+              header={"College"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938972/icons/studies_yawfuz.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>hometown</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add hometown</span>
-            </div>
+
+          <div className="currentCity" onClick={() => setVisible(5)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.currentCity}
+              header={"Current City"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938922/icons/home_wdq8jq.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>Relationship</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add your relationship if your want</span>
-            </div>
+
+          <div className="hometown" onClick={() => setVisible(6)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.hometown}
+              header={"Current City"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938922/icons/home_wdq8jq.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
-          <div className="general_Details">
-            <span>Instagram</span>
-            <div className="inner filter_blue">
-              <i className="plus_icon"></i>
-              <span>Add your instagram link</span>
-            </div>
+
+          <div className="relationship" onClick={() => setVisible(7)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.relationship}
+              header={"Relationship"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938969/icons/relationship_c7bpox.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+              rel
+            />
+          </div>
+          <div className="instagram" onClick={() => setVisible(8)}>
+            <InnerDetails
+              intro={intro}
+              value={details?.instagram}
+              header={"Instagram"}
+              img={
+                "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938959/icons/instagram_helgjd.png"
+              }
+              handleBio={handleBio}
+              handleUpdatedBio={handleUpdatedBio}
+              showBio={showBio}
+              visible={visible}
+              setVisible={setVisible}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
         </div>
       </div>

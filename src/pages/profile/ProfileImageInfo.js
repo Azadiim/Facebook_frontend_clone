@@ -11,6 +11,7 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
+<<<<<<< HEAD
         {show && (
           <ProfilePicture
             setShow={setShow}
@@ -18,6 +19,9 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
             pics={pics[0].resources}
           />
         )}
+=======
+        {show && <ProfilePicture setShow={setShow} ppRef={ppRef} />}
+>>>>>>> 0610212a830c0b772976ce7e7011f93a4c8cc893
         <div className="profile_camera" onClick={() => setShow(true)}>
           <div
             className="profile_pic"
@@ -37,7 +41,7 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
         <div className="profile_text">
           <div className="text">
             {profile.first_name} {profile.last_name}
-            <div className="othername">Othername</div>
+            <div className="othername">{profile?.details?.otherName}</div>
           </div>
           <div className="counter">4 friends</div>
           <div className="followers_pic"></div>
