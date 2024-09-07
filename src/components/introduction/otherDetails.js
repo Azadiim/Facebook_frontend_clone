@@ -130,7 +130,7 @@ const OtherDetails = ({
             <InnerDetails
               intro={intro}
               value={details?.hometown}
-              header={"Current City"}
+              header={"hometown"}
               img={
                 "https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938922/icons/home_wdq8jq.png"
               }

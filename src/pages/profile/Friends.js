@@ -1,6 +1,3 @@
-import { useEffect, useReducer, useState } from "react";
-import { photoReducer } from "../../functions/reducers";
-import axios from "axios";
 
 const Friends = ({ friends }) => {
   return (

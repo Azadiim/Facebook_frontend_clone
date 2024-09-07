@@ -79,7 +79,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 1rem;
   margin-bottom: -2.8rem;
 }
@@ -217,14 +217,13 @@
   background: var(--bg-secondary);
 }
 .profile_bottom .profile_bottom_container {
-  padding: 10px 2.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .profile_bottom .profile_bottom_container .btm_container {
-  max-width: 70vw;
+  width: 60vw !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -236,9 +235,10 @@
   padding: 10px 15px;
   margin-top: 10px;
   border-radius: 10px;
-  max-width: 700px;
+  width: 80%;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 }
 .ppl_you_know .ppl_you_know_header {
   display: flex;
@@ -267,7 +267,7 @@
   display: flex;
   gap: 5px;
   height: 250px;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
 }
 .add_friend_card {
@@ -552,6 +552,47 @@
 .cover_save_changes .cover_left svg {
   filter: invert(100%);
   transform: scale(120%);
+}
+.friends_total_wrap{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+}
+.open_cover_menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-primary);
+  left: 20rem;
+  width: 200px;
+  margin-top: 5px;
+  z-index: 10;
+  padding: 5px;
+  border-radius: 10px;
+ 
+}
+
+.open_cover_menu .friends_option_item {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+
+}
+.open_cover_menu :hover{
+  background: var(--bg-secondary);
+}
+.blue_btn .invert {
+  filter:invert(100%)
 }
 
 /*-------left side photo profile-------*/

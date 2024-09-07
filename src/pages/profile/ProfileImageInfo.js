@@ -1,17 +1,15 @@
 import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profilePicture";
 import { useSelector } from "react-redux";
+import FriendShip from "./friendShip";
 
-const ProfileImageInfo = ({ profile, yourPage }) => {
+const ProfileImageInfo = ({ profile, yourPage, pics }) => {
   const [show, setShow] = useState(false);
   const ppRef = useRef(null);
-  const { pics } = useSelector((pics) => ({ ...pics }));
-  console.log("****\n***\n**\n*", pics[0].resources);
 
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
-<<<<<<< HEAD
         {show && (
           <ProfilePicture
             setShow={setShow}
@@ -19,9 +17,6 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
             pics={pics[0].resources}
           />
         )}
-=======
-        {show && <ProfilePicture setShow={setShow} ppRef={ppRef} />}
->>>>>>> 0610212a830c0b772976ce7e7011f93a4c8cc893
         <div className="profile_camera" onClick={() => setShow(true)}>
           <div
             className="profile_pic"
@@ -63,7 +58,7 @@ const ProfileImageInfo = ({ profile, yourPage }) => {
           </div>
         </div>
       ) : (
-        ""
+        <FriendShip friendship={profile.friendship} />
       )}
     </div>
   );

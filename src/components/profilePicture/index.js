@@ -3,17 +3,7 @@ import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
 import useClickOutSide from "../../helpers/clickOutSide";
 import { useSelector } from "react-redux";
-<<<<<<< HEAD
 const ProfilePicture = ({ setShow, ppRef, pics }) => {
-=======
-const ProfilePicture = ({ setShow, ppRef }) => {
-  let photos = {};
-  const { pics } = useSelector((pics) => ({ ...pics }));
-  if (pics[0].resources && pics[0].resources.length !== 0) {
-    photos = pics[0].resources;
-  }
-  
->>>>>>> 0610212a830c0b772976ce7e7011f93a4c8cc893
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -36,7 +26,7 @@ const ProfilePicture = ({ setShow, ppRef }) => {
       setError("The file is too large. max size 5mb is allowed");
       return;
     }
-    console.log(pics[0]);
+    
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
@@ -93,7 +83,6 @@ const ProfilePicture = ({ setShow, ppRef }) => {
         <div className="old_picture_wrap">
           <span>Old profile Picture</span>
           <div className="pptuned_profile">
-<<<<<<< HEAD
             {pics
               ?.filter(
                 (img) => img.folder === `${user.username}/profilePicture`
@@ -107,23 +96,6 @@ const ProfilePicture = ({ setShow, ppRef }) => {
                   style={{ width: "100px" }}
                 />
               ))}
-=======
-            {photos &&
-              photos.length &&
-              photos
-                .filter(
-                  (img) => img.folder === `${user.username}/profilePicture`
-                )
-                .map((photo) => (
-                  <img
-                    onClick={() => setImage(photo.secure_url)}
-                    src={photo.secure_url}
-                    key={photo.public_id}
-                    alt="Old profile pictures"
-                    style={{ width: "100px" }}
-                  />
-                ))}
->>>>>>> 0610212a830c0b772976ce7e7011f93a4c8cc893
           </div>
           <div className="splitter"></div>
           <span>Old Other Picture</span>
