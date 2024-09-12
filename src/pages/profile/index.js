@@ -62,6 +62,7 @@ const Profile = ({ setPostVisible }) => {
       });
     }
   };
+
   useEffect(() => {
     getProfile();
   }, []);
@@ -72,7 +73,11 @@ const Profile = ({ setPostVisible }) => {
       <div className="profile_top">
         <div className="profile_container">
           <Cover cover={profile.cover} yourPage={yourPage} />
-          <ProfileImageInfo profile={profile} yourPage={yourPage} pics={pics} />
+          <ProfileImageInfo
+            profile={profile ? profile : ""}
+            yourPage={yourPage}
+            pics={pics}
+          />
           <ProfileMenu />
         </div>
       </div>

@@ -50,6 +50,7 @@
 .pay_attention_after {
   position: absolute;
   top: 14px;
+  right:25rem;
   display: flex;
   flex-direction: column;
   gap: 10px;

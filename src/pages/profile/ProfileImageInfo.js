@@ -6,7 +6,7 @@ import FriendShip from "./friendShip";
 const ProfileImageInfo = ({ profile, yourPage, pics }) => {
   const [show, setShow] = useState(false);
   const ppRef = useRef(null);
-
+  
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
@@ -58,7 +58,8 @@ const ProfileImageInfo = ({ profile, yourPage, pics }) => {
           </div>
         </div>
       ) : (
-        <FriendShip friendship={profile.friendship} />
+        <FriendShip friendshipp={profile?.friendship} profileId={profile._id} />
+        
       )}
     </div>
   );

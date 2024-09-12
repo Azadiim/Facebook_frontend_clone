@@ -1,19 +1,32 @@
-import React, { useRef, useState } from "react";
+import React, { Children, useRef, useState } from "react";
 import useClickOutSide from "../../helpers/clickOutSide";
+import { addFriend } from "../../functions/user";
+import { useSelector } from "react-redux";
 
-const FriendShip = ({friendship}) => {
- 
-
+const FriendShip = ({ friendshipp, profileId }) => {
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [respondMenu, setRespondMenu] = useState(false);
+  const [friendship, setFriendship] = useState(friendshipp ? friendshipp : "");
   const refFriends = useRef(null);
   const respondRef = useRef(null);
+  const { user } = useSelector((state) => ({ ...state }));
+
   useClickOutSide(refFriends, () => {
     setFriendsMenu(false);
   });
   useClickOutSide(respondRef, () => {
     setRespondMenu(false);
   });
+  useState(() => {
+    setFriendship(friendshipp ? friendshipp : "");
+  }, [friendshipp]);
+
+  const addFriendHandler = async () => {
+    await addFriend(profileId, user.token);
+
+    setFriendship({ ...friendship, sentRequest: true, following: true });
+  };
+  console.log("*", friendshipp && friendshipp.sentRequest);
   return (
     <div className="friends_total_wrap">
       {friendship?.friends ? (
@@ -74,7 +87,7 @@ const FriendShip = ({friendship}) => {
       ) : (
         !friendship?.sentRequest &&
         !friendship?.receivedRequest && (
-          <button className="blue_btn">
+          <button className="blue_btn" onClick={() => addFriendHandler()}>
             <img
               className="invert"
               src="https://res.cloudinary.com/dbmrpcjnf/image/upload/v1721938916/icons/addFriend_tl9ylx.png"
