@@ -2,11 +2,12 @@ import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profilePicture";
 import { useSelector } from "react-redux";
 import FriendShip from "./friendShip";
+import { Link } from "react-router-dom";
 
-const ProfileImageInfo = ({ profile, yourPage, pics }) => {
+const ProfileImageInfo = ({ profile, yourPage, pics, friends }) => {
   const [show, setShow] = useState(false);
   const ppRef = useRef(null);
-  
+
   return (
     <div className="profile_picture_wrap">
       <div className="profile_left">
@@ -23,7 +24,7 @@ const ProfileImageInfo = ({ profile, yourPage, pics }) => {
             ref={ppRef}
             style={{
               backgroundSize: "cover",
-              backgroundImage: `url(${profile.picture})`,
+              backgroundImage: `url(${profile?.picture})`,
             }}
           ></div>
           {yourPage && (
@@ -35,11 +36,29 @@ const ProfileImageInfo = ({ profile, yourPage, pics }) => {
 
         <div className="profile_text">
           <div className="text">
-            {profile.first_name} {profile.last_name}
+            {profile?.first_name} {profile?.last_name}
             <div className="othername">{profile?.details?.otherName}</div>
           </div>
-          <div className="counter">4 friends</div>
-          <div className="followers_pic"></div>
+          <div className="counter">
+            {" "}
+            {friends && friends?.length === 0
+              ? "0 friend"
+              : friends?.length === 1
+              ? "1 photo"
+              : `${friends?.length} friends`}
+          </div>
+          <div className="followers_pic">
+            {friends &&
+              friends?.slice(0, 6).map((friend, i) => (
+                <Link to={`/profile/${friend.username}`} reloadDocument key={i}>
+                  <img
+                    src={friend?.picture}
+                    alt=""
+                    style={{ transform: `translateX(-${5 * i}px)` }}
+                  />
+                </Link>
+              ))}
+          </div>
         </div>
       </div>
       {yourPage ? (
@@ -58,8 +77,10 @@ const ProfileImageInfo = ({ profile, yourPage, pics }) => {
           </div>
         </div>
       ) : (
-        <FriendShip friendshipp={profile?.friendship} profileId={profile._id} />
-        
+        <FriendShip
+          friendshipp={profile?.friendship}
+          profileId={profile?._id}
+        />
       )}
     </div>
   );

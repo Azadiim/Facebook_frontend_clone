@@ -20,7 +20,7 @@ import Intro from "../../components/introduction";
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
   const navigate = useNavigate();
-  const [photos, setPhotos] = useState({});
+ 
 
   const { user } = useSelector((state) => ({ ...state }));
   const { pics } = useSelector((pics) => ({ ...pics }));
@@ -72,9 +72,10 @@ const Profile = ({ setPostVisible }) => {
       <Header page="profile" />
       <div className="profile_top">
         <div className="profile_container">
-          <Cover cover={profile.cover} yourPage={yourPage} />
+          <Cover cover={profile?.cover} yourPage={yourPage} />
           <ProfileImageInfo
             profile={profile ? profile : ""}
+            friends={profile?.friends}
             yourPage={yourPage}
             pics={pics}
           />
@@ -87,9 +88,9 @@ const Profile = ({ setPostVisible }) => {
             <PplYouMayKnow />
             <div className="profile_grid">
               <div className="profile_left">
-                <Intro detailss={profile.details} yourPage={yourPage} />
+                <Intro detailss={profile?.details} yourPage={yourPage} />
                 <Photos username={userName} token={userName.token} />
-                <Friends friends={profile.friends} />
+                <Friends friends={profile?.friends} />
               </div>
               <div className="profile_right">
                 {yourPage && (
@@ -100,7 +101,7 @@ const Profile = ({ setPostVisible }) => {
                   />
                 )}
                 <GridPosts />
-                {profile.posts && profile.posts.length ? (
+                {profile?.posts && profile?.posts.length ? (
                   profile.posts.map((post) => (
                     <Posts post={post} user={user} key={post._id} profile />
                   ))

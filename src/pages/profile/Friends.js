@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 const Friends = ({ friends }) => {
   return (
     <div className="photo_collection">
@@ -6,10 +6,10 @@ const Friends = ({ friends }) => {
         <div className="left">
           <span className="up">friends</span>
           <span className="down">
-            {friends &&friends?.length === 0
+            {friends && friends?.length === 0
               ? "0 friend"
               : friends?.length === 1
-              ? "2 photo"
+              ? "1 photo"
               : `${friends?.length} friends`}
           </span>
         </div>
@@ -17,9 +17,19 @@ const Friends = ({ friends }) => {
       </div>
       <div className="photo_body">
         {friends &&
-          friends
-            .slice(0, 9)
-            .map((friend) => <div className="grid_photo"></div>)}
+          friends.slice(0, 9).map((friend, i) => (
+            <Link
+              to={`/profile/${friend?.username}`}
+              reloadDocument
+              className="grid_photo"
+              key={i}
+            >
+              <img src={friend?.picture} alt="" />
+              <span>
+                {friend.first_name} {friend.last_name}
+              </span>
+            </Link>
+          ))}
       </div>
     </div>
   );
