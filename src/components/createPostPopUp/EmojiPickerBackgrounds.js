@@ -60,6 +60,7 @@ const EmojiPickerBackgrounds = ({
           onClick={() => {
             setShowBg((prev) => !prev);
           }}
+          alt=""
         />
       )}
       {showBg && (
@@ -72,6 +73,7 @@ const EmojiPickerBackgrounds = ({
               onClick={() => {
                 handleBg(i);
               }}
+              alt=""
             />
           ))}
         </div>

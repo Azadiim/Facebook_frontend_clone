@@ -14,10 +14,9 @@ import { useNavigate } from "react-router-dom";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(true);
-  const { user } = useSelector((user) => ({ ...user }));
+  const { user } = useSelector((state) => ({ ...state }));
   useClickOutSide(el, () => {
     setVisible(false);
   });
@@ -64,7 +63,7 @@ const Home = ({ setPostVisible, posts }) => {
           <CreatePost user={user} setPostVisible={setPostVisible} />
           <div className="posts">
             {posts.map((post) => (
-              <Posts post={post} key={post._id} user={user} />
+              <Posts post={post} key={post._id} user={user}  />
             ))}
           </div>
         </div>

@@ -6,9 +6,22 @@ import ReactPopUp from "./ReactPopUp";
 import { useState } from "react";
 import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu";
+import { useEffect } from "react";
+import { getReact } from "../../functions/post";
 const Posts = ({ post, user, profile }) => {
   const [react, setReact] = useState(false);
+  const [rcs, setRcs] = useState();
   const [showMenu, setShowMenu] = useState(false);
+  const [check, setCheck] = useState();
+  useEffect(() => {
+    getPostReacts();
+  }, [post]);
+
+  const getPostReacts = async () => {
+    const res = await getReact(post._id, user.token);
+    setRcs(res.react);
+    setCheck(res.check);
+  };
   return (
     <div className="post" style={{ width: `${profile && "100%"}` }}>
       <div className="post_header">
@@ -108,7 +121,7 @@ const Posts = ({ post, user, profile }) => {
         </div>
       </div>
       <div className="reacts_like">
-        <ReactPopUp react={react} setReact={setReact} />
+        <ReactPopUp react={react} setReact={setReact} postId={post._id} />
         <div
           className="like hover1"
           onMouseOver={() => {
@@ -122,7 +135,11 @@ const Posts = ({ post, user, profile }) => {
             }, 500);
           }}
         >
-          <i className="like_icon"></i>
+          {check ? (
+            <img src={`./reacts/${check}.svg`} alt="" style={{'width':'16px'}} />
+          ) : (
+            <i className="like_icon"></i>
+          )}
           <span>like</span>
         </div>
         <div className="comment hover1 ">
