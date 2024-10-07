@@ -7,21 +7,35 @@ import { useState } from "react";
 import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu";
 import { useEffect } from "react";
-import { getReact } from "../../functions/post";
+import { createReact, getReact } from "../../functions/post";
 const Posts = ({ post, user, profile }) => {
   const [react, setReact] = useState(false);
   const [rcs, setRcs] = useState();
   const [showMenu, setShowMenu] = useState(false);
-  const [check, setCheck] = useState();
+  const [check, setCheck] = useState("");
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     getPostReacts();
+    
   }, [post]);
 
   const getPostReacts = async () => {
     const res = await getReact(post._id, user.token);
     setRcs(res.react);
     setCheck(res.check);
+    setTotal(res.total);
   };
+
+  const reactHandler = async (type) => {
+    await createReact(post._id, type, user.token);
+    if (check === type) {
+      setCheck();
+    } else {
+      setCheck(type);
+    }
+  };
+  
+
   return (
     <div className="post" style={{ width: `${profile && "100%"}` }}>
       <div className="post_header">
@@ -107,13 +121,23 @@ const Posts = ({ post, user, profile }) => {
         </div>
       ) : (
         <div className="profile_picture_cover">
-          <img src={post.images[0].url} />
+          <img src={post.images[0].url} alt="" />
         </div>
       )}
       <div className="reacts_share">
         <div className="to_left">
-          <div className="react_count_img"></div>
-          <div className="react_count_num"></div>
+          <div className="react_count_img">
+            {rcs &&
+              rcs
+                .slice(0, 3)
+                .map(
+                  (react) =>
+                    react.count > 0 && (
+                      <img src={`./reacts/${react.react}.svg`} alt="" />
+                    )
+                )}
+          </div>
+          <div className="react_count_num">{total > 0 && total}</div>
         </div>
         <div className="to_right">
           <span className="post_comments">1comments</span>
@@ -121,7 +145,11 @@ const Posts = ({ post, user, profile }) => {
         </div>
       </div>
       <div className="reacts_like">
-        <ReactPopUp react={react} setReact={setReact} postId={post._id} />
+        <ReactPopUp
+          react={react}
+          setReact={setReact}
+          reactHandler={reactHandler}
+        />
         <div
           className="like hover1"
           onMouseOver={() => {
@@ -134,13 +162,34 @@ const Posts = ({ post, user, profile }) => {
               setReact(false);
             }, 500);
           }}
+          onClick={() => {
+            reactHandler(check ? check : "like");
+          }}
         >
           {check ? (
-            <img src={`./reacts/${check}.svg`} alt="" style={{'width':'16px'}} />
+            <img
+              src={`./reacts/${check}.svg`}
+              alt=""
+              style={{ width: "16px" }}
+            />
           ) : (
             <i className="like_icon"></i>
           )}
-          <span>like</span>
+          <span
+            style={{
+              color: `${
+                check === "like"
+                  ? "#4267b2"
+                  : check === "love"
+                  ? "#f63459"
+                  : check === "angry"
+                  ? "#e4605a"
+                  : "f7b125"
+              }`,
+            }}
+          >
+            {check ? check : "Like"}
+          </span>
         </div>
         <div className="comment hover1 ">
           <i className="comment_icon"></i>
@@ -153,7 +202,7 @@ const Posts = ({ post, user, profile }) => {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComments user={user} />
+        <CreateComments user={user} postId={post?._id} />
       </div>
       {showMenu && (
         <PostMenu

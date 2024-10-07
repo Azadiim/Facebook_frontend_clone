@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import Picker from "emoji-picker-react";
+import { comment } from "../../functions/post";
+import PulseLoader from "react-spinners/PulseLoader";
+import { uploadImages } from "../../functions/uploadImages";
+import dataURItoBlob from "../../helpers/dataURItoBlob";
 
-const CreateComments = ({ user }) => {
+const CreateComments = ({ user, postId }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
   const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [imageComment, setImageComment] = useState("");
   const textRef = useRef(null);
@@ -42,6 +47,38 @@ const CreateComments = ({ user }) => {
       setImageComment(event.target.result);
     };
   };
+  const handleComment = async (e) => {
+    try {
+      if (e.key === "Enter") {
+        if (imageComment && imageComment.length) {
+          setLoading(true);
+          const img = dataURItoBlob(imageComment);
+          const path = `${user.username}/post_images/${postId}`;
+          let formData = new FormData();
+          formData.append("path", path);
+          formData.append("file", img);
+          const imgCom = await uploadImages(formData, path, user.token);
+          const comments = await comment(
+            postId,
+            text,
+            imgCom[0].url,
+            user.token
+          );
+          console.log(comments);
+          setLoading(false);
+          setText("");
+          setImageComment("");
+        } else {
+          setLoading(true);
+          const comments = await comment(postId, text, "", user.token);
+          setText("");
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="create_comment_wrap">
       <div className="create_comment">
@@ -78,7 +115,9 @@ const CreateComments = ({ user }) => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Write a comment..."
+            onKeyUp={handleComment}
           />
+          {loading && <PulseLoader color="#85c1e9" size={5} />}
           <div
             className="comment_circle_icon hover2"
             onClick={() => setPicker((prev) => !prev)}
