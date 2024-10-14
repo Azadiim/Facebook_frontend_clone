@@ -110,6 +110,7 @@
   position: absolute;
   right: 0px;
   bottom: 2.5rem;
+  z-index: 100;
 }
 .rlmove {
   right: -7rem;

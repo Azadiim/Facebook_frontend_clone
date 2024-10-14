@@ -21,9 +21,9 @@ const Posts = ({ post, user, profile }) => {
 
   const getPostReacts = async () => {
     const res = await getReact(post._id, user.token);
-    setRcs(res.react);
-    setCheck(res.check);
-    setTotal(res.total);
+    setRcs(res?.react);
+    setCheck(res?.check);
+    setTotal(res?.total);
   };
 
   const reactHandler = async (type) => {
@@ -34,8 +34,7 @@ const Posts = ({ post, user, profile }) => {
       setCheck(type);
     }
   };
-  
-
+ 
   return (
     <div className="post" style={{ width: `${profile && "100%"}` }}>
       <div className="post_header">
@@ -131,16 +130,16 @@ const Posts = ({ post, user, profile }) => {
               rcs
                 .slice(0, 3)
                 .map(
-                  (react) =>
+                  (react,i) =>
                     react.count > 0 && (
-                      <img src={`./reacts/${react.react}.svg`} alt="" />
+                      <img src={`./reacts/${react.react}.svg`} alt="" key={i} />
                     )
                 )}
           </div>
           <div className="react_count_num">{total > 0 && total}</div>
         </div>
         <div className="to_right">
-          <span className="post_comments">1comments</span>
+          <span className="post_comments">{post.comments.length} comments</span>
           <span className="post_share">1share</span>
         </div>
       </div>
@@ -202,7 +201,7 @@ const Posts = ({ post, user, profile }) => {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComments user={user} postId={post?._id} />
+        <CreateComments user={user} postId={post?._id} comments={post.comments}/>
       </div>
       {showMenu && (
         <PostMenu

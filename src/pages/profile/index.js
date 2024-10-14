@@ -20,7 +20,6 @@ import Intro from "../../components/introduction";
 const Profile = ({ setPostVisible }) => {
   const { username } = useParams();
   const navigate = useNavigate();
- 
 
   const { user } = useSelector((state) => ({ ...state }));
   const { pics } = useSelector((pics) => ({ ...pics }));
@@ -46,7 +45,6 @@ const Profile = ({ setPostVisible }) => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
-
       if (data.profileExist === false) {
         navigate("/profile");
       } else {
@@ -62,7 +60,7 @@ const Profile = ({ setPostVisible }) => {
       });
     }
   };
-
+  console.log(profile.posts);
   useEffect(() => {
     getProfile();
   }, []);

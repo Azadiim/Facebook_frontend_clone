@@ -4,13 +4,15 @@ import { comment } from "../../functions/post";
 import PulseLoader from "react-spinners/PulseLoader";
 import { uploadImages } from "../../functions/uploadImages";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
+import CommentMgm from "./CommentMgm";
 
-const CreateComments = ({ user, postId }) => {
+const CreateComments = ({ user, postId, comments }) => {
   const [picker, setPicker] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [count, setCount] = useState(3);
   const [imageComment, setImageComment] = useState("");
   const textRef = useRef(null);
   const imageRef = useRef(null);
@@ -64,7 +66,7 @@ const CreateComments = ({ user, postId }) => {
             imgCom[0].url,
             user.token
           );
-          console.log(comments);
+          setCount((prv) => prv + 1);
           setLoading(false);
           setText("");
           setImageComment("");
@@ -73,12 +75,17 @@ const CreateComments = ({ user, postId }) => {
           const comments = await comment(postId, text, "", user.token);
           setText("");
           setLoading(false);
+          setCount((prv) => prv + 1);
         }
       }
     } catch (error) {
       console.log(error.message);
     }
   };
+  const moreCommentHandler = () => {
+    setCount(count + 3);
+  };
+
   return (
     <div className="create_comment_wrap">
       <div className="create_comment">
@@ -140,6 +147,25 @@ const CreateComments = ({ user, postId }) => {
           </div>
         </div>
       </div>
+      {comments && (
+        <div>
+          {comments
+            ?.sort()
+            .slice(-count)
+            .reverse()
+            .map((comment, i) => (
+              <CommentMgm comment={comment} key={i} />
+            ))}
+        </div>
+      )}
+      {comments && comments.length > count ? (
+        <div className="more_comments" onClick={() => moreCommentHandler()}>
+          Show More Comments
+        </div>
+      ) : (
+        ""
+      )}
+
       {imageComment && (
         <div className="image_comment_preview">
           <img src={imageComment} alt=""></img>
