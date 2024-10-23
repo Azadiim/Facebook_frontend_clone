@@ -17,7 +17,7 @@ import Photos from "./Photos";
 import Friends from "./Friends";
 import Intro from "../../components/introduction";
 
-const Profile = ({ setPostVisible }) => {
+const Profile = ({ setPostVisible, getAllPosts }) => {
   const { username } = useParams();
   const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ const Profile = ({ setPostVisible }) => {
 
   return (
     <div className="profile">
-      <Header page="profile" />
+      <Header page="profile" getAllPosts={getAllPosts} />
       <div className="profile_top">
         <div className="profile_container">
           <Cover cover={profile?.cover} yourPage={yourPage} />

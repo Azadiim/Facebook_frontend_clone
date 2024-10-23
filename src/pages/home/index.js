@@ -10,7 +10,6 @@ import "./style.css";
 import Posts from "../../components/posts/Posts";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Home = ({ setPostVisible, posts }) => {
   const el = useRef(null);
@@ -25,7 +24,7 @@ const Home = ({ setPostVisible, posts }) => {
 
   useEffect(() => {
     getAllPics();
-  },[]);
+  }, []);
 
   const path = `${user.username}/*`;
   const max = 30;
@@ -40,7 +39,7 @@ const Home = ({ setPostVisible, posts }) => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
-      setPics(data);
+      
       dispatch({
         type: "DOWNLOAD",
         payload: data,
@@ -63,7 +62,7 @@ const Home = ({ setPostVisible, posts }) => {
           <CreatePost user={user} setPostVisible={setPostVisible} />
           <div className="posts">
             {posts.map((post) => (
-              <Posts post={post} key={post._id} user={user}  />
+              <Posts post={post} key={post._id} user={user} />
             ))}
           </div>
         </div>

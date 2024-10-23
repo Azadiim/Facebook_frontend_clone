@@ -1,20 +1,56 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PostMenuItem from "./PostMenuItem";
 import useClickOutSide from "../../helpers/clickOutSide";
-const PostMenu = ({ userId, postId, imagePost, setShowMenu }) => {
+import { savePost } from "../../functions/post";
+const PostMenu = ({
+  userId,
+  postId,
+  imagePost,
+  setShowMenu,
+  token,
+  pId,
+  checkSaved,
+  setCheckSaved,
+}) => {
   const [test, setTest] = useState(userId === postId ? true : false);
+  const [save, setSave] = useState();
+  useEffect(() => {
+    if (savePost(pId, token)) {
+      console.log("true");
+    } else {
+      console.log("false");
+    }
+  });
+
   const menuRef = useRef(null);
+  const handleSave = async () => {
+    await savePost(pId, token);
+    if (checkSaved) {
+      setCheckSaved(false);
+    } else setCheckSaved(true);
+  };
+
   useClickOutSide(menuRef, () => {
     setShowMenu(false);
   });
   return (
     <ul className="post_menu_wrap" ref={menuRef}>
       {test && <PostMenuItem icon="pin_icon" title="Pin code" />}
-      <PostMenuItem
-        icon="save_icon"
-        title="Save Post"
-        subtitle="add this to your saved items"
-      />
+      <div onClick={() => handleSave()}>
+        {!checkSaved ? (
+          <PostMenuItem
+            icon="save_icon"
+            title="Save Post"
+            subtitle="add this to your saved items"
+          />
+        ) : (
+          <PostMenuItem
+            icon="unsave_icon"
+            title="unSave Post"
+            subtitle="remove this to your saved items"
+          />
+        )}
+      </div>
       <div className="line"></div>
       {!test && (
         <PostMenuItem

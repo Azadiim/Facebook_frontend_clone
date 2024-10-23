@@ -2,7 +2,6 @@ import React from "react";
 import Moment from "react-moment";
 
 const CommentMgm = ({ comment }) => {
-  console.log(comment);
   return (
     <div className="comment_mgm">
       <div className="profile_comment">

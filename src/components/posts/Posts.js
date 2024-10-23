@@ -14,9 +14,9 @@ const Posts = ({ post, user, profile }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [check, setCheck] = useState("");
   const [total, setTotal] = useState(0);
+  const [checkSaved, setCheckSaved] = useState();
   useEffect(() => {
     getPostReacts();
-    
   }, [post]);
 
   const getPostReacts = async () => {
@@ -24,6 +24,7 @@ const Posts = ({ post, user, profile }) => {
     setRcs(res?.react);
     setCheck(res?.check);
     setTotal(res?.total);
+    setCheckSaved(res?.checkSaved);
   };
 
   const reactHandler = async (type) => {
@@ -34,7 +35,7 @@ const Posts = ({ post, user, profile }) => {
       setCheck(type);
     }
   };
- 
+
   return (
     <div className="post" style={{ width: `${profile && "100%"}` }}>
       <div className="post_header">
@@ -130,7 +131,7 @@ const Posts = ({ post, user, profile }) => {
               rcs
                 .slice(0, 3)
                 .map(
-                  (react,i) =>
+                  (react, i) =>
                     react.count > 0 && (
                       <img src={`./reacts/${react.react}.svg`} alt="" key={i} />
                     )
@@ -201,7 +202,11 @@ const Posts = ({ post, user, profile }) => {
       </div>
       <div className="comments_wrap">
         <div className="comments_order"></div>
-        <CreateComments user={user} postId={post?._id} comments={post.comments}/>
+        <CreateComments
+          user={user}
+          postId={post?._id}
+          comments={post.comments}
+        />
       </div>
       {showMenu && (
         <PostMenu
@@ -209,6 +214,10 @@ const Posts = ({ post, user, profile }) => {
           postId={post.user._id}
           imagePost={post?.images?.length}
           setShowMenu={setShowMenu}
+          token={user.token}
+          pId={post._id}
+          checkSaved={checkSaved}
+          setCheckSaved={setCheckSaved}
         />
       )}
     </div>
