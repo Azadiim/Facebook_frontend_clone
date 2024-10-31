@@ -154,7 +154,7 @@ const CreateComments = ({ user, postId, comments }) => {
             .slice(-count)
             .reverse()
             .map((comment, i) => (
-              <CommentMgm comment={comment} key={i} />
+              <CommentMgm comment={comment? comment :  ''} key={i} />
             ))}
         </div>
       )}

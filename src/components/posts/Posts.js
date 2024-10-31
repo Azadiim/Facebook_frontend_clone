@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Dots, Public } from "../../svg";
 import "./style.css";
 import ReactPopUp from "./ReactPopUp";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CreateComments from "./CreateComments";
 import PostMenu from "./PostMenu";
 import { useEffect } from "react";
@@ -15,6 +15,7 @@ const Posts = ({ post, user, profile }) => {
   const [check, setCheck] = useState("");
   const [total, setTotal] = useState(0);
   const [checkSaved, setCheckSaved] = useState();
+  const postRef = useRef(null);
   useEffect(() => {
     getPostReacts();
   }, [post]);
@@ -37,24 +38,28 @@ const Posts = ({ post, user, profile }) => {
   };
 
   return (
-    <div className="post" style={{ width: `${profile && "100%"}` }}>
+    <div
+      className="post"
+      style={{ width: `${profile && "100%"}` }}
+      ref={postRef}
+    >
       <div className="post_header">
         <Link
-          to={`/profile/${post.user.username}`}
+          to={`/profile/${post?.user?.username}`}
           className="post_header_left"
         >
-          <img src={post.user.picture} alt="" />
+          <img src={post?.user?.picture} alt="" />
           <div className="profile_name">
             <div className="name">
-              {post.user.first_name} {post.user.last_name}
+              {post?.user?.first_name} {post?.user?.last_name}
               <div className="updated_p">
                 {post.type === "profilePicture" &&
                   `updated ${
-                    post.user.gender === "male" ? "his" : "her"
+                    post?.user?.gender === "male" ? "his" : "her"
                   } profile picture`}
                 {post.type === "coverPicture" &&
                   `updated ${
-                    post.user.gender === "male" ? "his" : "her"
+                    post?.user?.gender === "male" ? "his" : "her"
                   } cover picture`}
               </div>
             </div>
@@ -113,7 +118,7 @@ const Posts = ({ post, user, profile }) => {
       ) : post.type === "profilePicture" ? (
         <div className="profile_picture_wrap">
           <div className="post_cover_bg">
-            <img src={post.user.cover} alt="" />
+            <img src={post?.user?.cover} alt="" />
           </div>
           {post.images && (
             <img src={post.images[0].url} alt="" className="post_profile_bg" />
@@ -211,13 +216,15 @@ const Posts = ({ post, user, profile }) => {
       {showMenu && (
         <PostMenu
           userId={user.id}
-          postId={post.user._id}
+          postId={post?.user?._id}
           imagePost={post?.images?.length}
           setShowMenu={setShowMenu}
           token={user.token}
           pId={post._id}
           checkSaved={checkSaved}
           setCheckSaved={setCheckSaved}
+          images={post.images}
+          postRef={postRef}
         />
       )}
     </div>

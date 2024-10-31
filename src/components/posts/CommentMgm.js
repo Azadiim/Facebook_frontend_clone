@@ -5,18 +5,18 @@ const CommentMgm = ({ comment }) => {
   return (
     <div className="comment_mgm">
       <div className="profile_comment">
-        <img src={comment.commentBy.picture} alt="" />
+        <img src={comment?.commentBy?.picture} alt="" />
       </div>
       <div className="comment_block">
         <div className="message_comment">
           <div className="comment_by">
-            {comment.commentBy.first_name} {comment.commentBy.last_name}
+            {comment?.commentBy?.first_name} {comment?.commentBy?.last_name}
           </div>
-          {comment.comment}
+          {comment?.comment}
         </div>
         {comment.image && (
           <div className="picture_comment">
-            <img src={comment.image} alt="" />
+            <img src={comment?.image} alt="" />
           </div>
         )}
         <div className="like_reply">
@@ -25,7 +25,7 @@ const CommentMgm = ({ comment }) => {
           <div className="hours_ago">
             {" "}
             <Moment fromNow interval={3600}>
-              {comment.commentAt}
+              {comment?.commentAt}
             </Moment>
           </div>
         </div>

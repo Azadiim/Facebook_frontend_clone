@@ -60,7 +60,6 @@ const Profile = ({ setPostVisible, getAllPosts }) => {
       });
     }
   };
-  console.log(profile.posts);
   useEffect(() => {
     getProfile();
   }, []);

@@ -176,7 +176,23 @@ header {
   transform: translateY(-1px);
 }
 .search_history {
+ 
+}
+.search_item{
+  display: flex;
   width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--color-secondary);
+  gap: 5px;
+  padding: 5px;
+}
+
+.search_item img{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .search_history_header {
   width: 100%;

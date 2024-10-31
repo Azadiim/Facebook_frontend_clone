@@ -8,11 +8,13 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { createPost } from "../../functions/post";
 import dataURItoBlob from "../../helpers/dataURItoBlob";
 import { uploadImages } from "../../functions/uploadImages";
-const CreatePostPopUp = ({ user, setPostVisible }) => {
+import { useDispatch } from "react-redux";
+const CreatePostPopUp = ({ user, setPostVisible, pageRef }) => {
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const textRef = useRef(null);
   const bgRef = useRef(null);
   const postRef = useRef(null);
@@ -85,6 +87,7 @@ const CreatePostPopUp = ({ user, setPostVisible }) => {
         setBackground("");
         setText("");
         setPostVisible(false);
+        pageRef.current.style.reload();
       } else {
         setError(response);
       }

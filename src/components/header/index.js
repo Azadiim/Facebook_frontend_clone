@@ -27,6 +27,8 @@ const Header = ({ page }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showAllMenu, setShowAllMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+
   const allmenu = useRef(null);
   const userMenu = useRef(null);
   useClickOutSide(allmenu, () => {
@@ -35,6 +37,7 @@ const Header = ({ page }) => {
   useClickOutSide(userMenu, () => {
     setShowUserMenu(false);
   });
+
   return (
     <header>
       <div className="header_left">
@@ -58,7 +61,7 @@ const Header = ({ page }) => {
         </div>
       </div>
       {showSearchMenu && (
-        <SearchMenu setShowSearchMenu={setShowSearchMenu} color={color} />
+        <SearchMenu setShowSearchMenu={setShowSearchMenu} color={color} token={user.token}/>
       )}
       <div className="header_middle">
         <Link
