@@ -1,4 +1,8 @@
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 const DisplayAndAccessibility = ({ setVisible }) => {
+  const dispatch = useDispatch();
+  const { darkTheme } = useSelector((state) => ({ ...state }));
   return (
     <div className="absolute_wrap">
       <div className="absolute_wrap_header">
@@ -8,7 +12,7 @@ const DisplayAndAccessibility = ({ setVisible }) => {
         Display & Accessibility
       </div>
       <div className="mmenu_main">
-        <div className="small_circle" style={{width:'40px'}}>
+        <div className="small_circle" style={{ width: "40px" }}>
           <i className="dark_filled_icon"></i>
         </div>
         <div className="mmenu_col">
@@ -18,16 +22,38 @@ const DisplayAndAccessibility = ({ setVisible }) => {
           </span>
         </div>
       </div>
-      <label htmlFor="darkOff" className="hover1">
+      <label
+        htmlFor="darkOff"
+        className="hover1"
+        onClick={() => {
+          Cookies.set("darkTheme", false);
+          dispatch({ type: "LIGHT" });
+        }}
+      >
         <span>Off</span>
-        <input type="radio" name="dark" id="darkOff" />
+        {!darkTheme ? (
+          <input type="radio" name="dark" id="darkOff" checked />
+        ) : (
+          <input type="radio" name="dark" id="darkOff" />
+        )}
       </label>
-      <label htmlFor="darkOn" className="hover1">
+      <label
+        htmlFor="darkOn"
+        className="hover1"
+        onClick={() => {
+          Cookies.set("darkTheme", true);
+          dispatch({ type: "DARK" });
+        }}
+      >
         <span>On</span>
-        <input type="radio" name="dark" id="darkOn" />
+        {darkTheme ? (
+          <input type="radio" name="dark" id="darkOff" checked />
+        ) : (
+          <input type="radio" name="dark" id="darkOff" />
+        )}
       </label>
-      <div className="mmenu_main" >
-        <div className="small_circle" style={{width:'50px'}}>
+      <div className="mmenu_main">
+        <div className="small_circle" style={{ width: "50px" }}>
           <i className="compact_icon"></i>
         </div>
         <div className="mmenu_col">

@@ -73,16 +73,20 @@ const LeftHome = ({ user }) => {
         <span className="left_link_shortspan2">edit</span>
       </div>
       <div className="shortcut_list">
+        <div>
         <LeftShortCut
           link="https://www.instagram.com/azad_am88/"
           name="My instagram"
           img={require("../../../postBackgrounds/insta.png")}
         />
+        </div>
+        <div>
         <LeftShortCut
           link="https://www.instagram.com/azad_am88/"
           name="My YouTube"
           img={require("../../../postBackgrounds/ytb.png")}
         />
+        </div>
       </div>
     </div>
   );

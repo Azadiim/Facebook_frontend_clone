@@ -13,6 +13,7 @@ import {
   Messenger,
   Notifications,
   ArrowDown,
+  FriendsActive,
 } from "../../svg";
 import { useSelector } from "react-redux";
 import SearchMenu from "./SearchMenu";
@@ -27,7 +28,6 @@ const Header = ({ page }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showAllMenu, setShowAllMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-
 
   const allmenu = useRef(null);
   const userMenu = useRef(null);
@@ -61,7 +61,11 @@ const Header = ({ page }) => {
         </div>
       </div>
       {showSearchMenu && (
-        <SearchMenu setShowSearchMenu={setShowSearchMenu} color={color} token={user.token}/>
+        <SearchMenu
+          setShowSearchMenu={setShowSearchMenu}
+          color={color}
+          token={user.token}
+        />
       )}
       <div className="header_middle">
         <Link
@@ -70,8 +74,11 @@ const Header = ({ page }) => {
         >
           {page === "home" ? <HomeActive /> : <Home color={color} />}
         </Link>
-        <Link to="/" className="middle_icon hover1">
-          <Friends color={color} />
+        <Link
+          to="/friends"
+          className={`middle_icon hover1 ${page === "friend" ? "active" : ""}`}
+        >
+          {page === "friend" ? <FriendsActive /> : <Friends color={color} />}
         </Link>
         <Link to="/" className="middle_icon hover1">
           <Watch color={color} />

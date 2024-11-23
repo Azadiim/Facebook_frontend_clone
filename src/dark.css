@@ -1,0 +1,92 @@
+.dark {
+  --bg-primary: #18191a;
+  --bg-secondary: #242526;
+  --bg-third: #3a3b3c;
+  --color-primary: #242526;
+  --color-secondary: #b0b3b8;
+}
+.dark input {
+  color: #999;
+}
+
+.dark .reg_grid select {
+  color: #999;
+}
+.dark .reg_grid label {
+  color: #999;
+}
+.dark .signup {
+  color: #999;
+}
+.dark .left_link {
+  background: var(--bg-third);
+}
+.dark .left_link span {
+  color: #999;
+}
+.dark .left_link .col {
+  color: #999;
+}
+.dark .left_link:hover {
+  filter: brightness(0.8);
+}
+.dark .small_circle {
+  background: #555;
+}
+.dark .shortcut_list {
+  background: var(--bg-third);
+  border-radius: 10px;
+}
+.dark .shortcut_item_span {
+  color: #999;
+}
+.dark .search {
+  background: var(--bg-third);
+}
+.dark .search_history_header span {
+  color: #999;
+}
+
+.dark .circle_icon:hover {
+  background: #555;
+}
+.dark .circle_icon svg {
+  filter: invert(70%);
+}
+.dark .profile_link {
+  background: var(--bg-third);
+}
+.dark .profile_link span {
+  color: #999;
+}
+.dark .header_text {
+  background: var(--bg-third) !important;
+}
+.dark .header_text:hover {
+  filter: brightness(0.8);
+}
+.dark .input_wrap input {
+  background: #3a3b3c;
+}
+.dark .blur {
+  background: #3a3b3c;
+}
+.dark .comment_emoji_picker {
+  filter: brightness(70%);
+}
+.dark .mmenu_item {
+  color: #999;
+}
+
+.dark .mmenu_header {
+  color: #999;
+}
+.dark .mmenu_col span {
+  color: #888;
+}
+.dark .mmenu_span1 {
+  color: #888;
+}
+.dark .absolute_wrap {
+  color: #888;
+}

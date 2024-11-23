@@ -11,10 +11,12 @@ import { useSelector } from "react-redux";
 import { useEffect, useReducer, useRef, useState } from "react";
 import axios from "axios";
 import { postReducer } from "./functions/reducers";
+import Friends from "./pages/friends";
+import "./dark.css";
 
 function App() {
   const [postVisible, setPostVisible] = useState(false);
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, darkTheme } = useSelector((state) => ({ ...state }));
   const pageRef = useRef();
 
   const [{ loading, posts, error }, dispatch] = useReducer(postReducer, {
@@ -50,7 +52,7 @@ function App() {
   }, []);
 
   return (
-    <div ref={pageRef}>
+    <div ref={pageRef} className={darkTheme && 'dark'}>
       {postVisible && (
         <CreatePostPopUp
           user={user}
@@ -75,13 +77,26 @@ function App() {
             element={<Profile setPostVisible={setPostVisible} />}
             exact
           />
+
           <Route path="/activate/:token" element={<Activate />} exact />
           <Route
             path="/"
             element={<Home setPostVisible={setPostVisible} posts={posts} />}
             exact
           />
+          <Route
+            path="/friends"
+            element={<Friends setPostVisible={setPostVisible} />}
+            exact
+          />
+
+          <Route
+            path="/friends/:type"
+            element={<Friends setPostVisible={setPostVisible} />}
+            exact
+          />
         </Route>
+
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} exact />
         </Route>

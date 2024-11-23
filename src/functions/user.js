@@ -150,3 +150,43 @@ export const addToSearchHistory = async (searchUser, token) => {
     return error.response.data.message;
   }
 };
+export const getSearchHistory = async (token) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/getSearchHistory`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data.message;
+  }
+};
+
+export const deleteFromSearchHistory = async (searchUser, token) => {
+  try {
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/deleteFromSearchHistory`,
+      { searchUser },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error.response.data.message;
+  }
+};
+
+export const getFriendsInfo = async (token) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/getFriendsInfo`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return { status: "ok", data };
+  } catch (error) {
+    console.log(error);
+    return error.response.data.message;
+  }
+};
+

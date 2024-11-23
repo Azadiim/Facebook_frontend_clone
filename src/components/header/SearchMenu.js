@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Return, Search } from "../../svg";
 import useClickOutSide from "../../helpers/clickOutSide";
-import { addToSearchHistory, search } from "../../functions/user";
+import {
+  addToSearchHistory,
+  deleteFromSearchHistory,
+  getSearchHistory,
+  search,
+} from "../../functions/user";
 import { Link } from "react-router-dom";
 
 const SearchMenu = ({ color, setShowSearchMenu, token }) => {
@@ -9,6 +14,7 @@ const SearchMenu = ({ color, setShowSearchMenu, token }) => {
   const input = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState([]);
+  const [showHistory, setShowHistory] = useState([]);
   const [iconVisible, setIconVisible] = useState(true);
   useClickOutSide(menu, () => {
     setShowSearchMenu(false);
@@ -16,6 +22,15 @@ const SearchMenu = ({ color, setShowSearchMenu, token }) => {
   useEffect(() => {
     input.current.focus();
   }, []);
+
+  useEffect(() => {
+    showHistoryHandler();
+  }, []);
+
+  const showHistoryHandler = async () => {
+    const res = await getSearchHistory(token);
+    setShowHistory(res);
+  };
 
   const searchHandler = async () => {
     if (searchTerm === "") {
@@ -28,8 +43,14 @@ const SearchMenu = ({ color, setShowSearchMenu, token }) => {
 
   const addToSearchHistoryHandler = async (searchUser) => {
     const res = await addToSearchHistory(searchUser, token);
+    console.log(res)
+    getSearchHistory();
   };
 
+  const deleteFromSearchHistoryHandler = async (searchUser) => {
+    await deleteFromSearchHistory(searchUser, token);
+  };
+  
   return (
     <div className="header_left search_area scrollbar" ref={menu}>
       <div className="search_wrap">
@@ -71,11 +92,43 @@ const SearchMenu = ({ color, setShowSearchMenu, token }) => {
           />
         </div>
       </div>
-      <div className="search_history_header">
-        <span>Recent Searches</span>
-        <a>Edit</a>
+      {!result.length && (
+        <div className="search_history_header">
+          <span>Recent Searches</span>
+          <a>Edit</a>
+        </div>
+      )}
+      <div className="search_history">
+        {showHistory &&
+          result == "" &&
+          showHistory
+            .sort((a, b) => {
+              return new Date(b.createdAt) - new Date(a.createdAt);
+            })
+            .map((user,i) => (
+              <div
+                className="search_result1 scrollbar hover1"
+                key={i}
+              >
+                <Link
+                  to={`/profile/${user.user?.username}`}
+                  className="search_item"
+                  onClick={() => addToSearchHistoryHandler(user?.user?._id)}
+                >
+                  <img src={user?.user?.picture} alt="" />
+                  <span>
+                    {user?.user?.first_name} {user?.user?.last_name}
+                  </span>
+                </Link>
+                <div
+                  className="exit_icon exit_scale"
+                  onClick={() =>
+                    deleteFromSearchHistoryHandler(user?.user?._id)
+                  }
+                ></div>
+              </div>
+            ))}
       </div>
-      <div className="search_history"></div>
       <div className="search_result scrollbar">
         {result &&
           result.map((r) => (

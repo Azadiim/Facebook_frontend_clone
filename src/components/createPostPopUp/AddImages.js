@@ -40,6 +40,7 @@ const AddImages = ({ images, setImages, setShowPrev, setError }) => {
           ref={imageInputRef}
           onChange={handleImage}
         />
+        
         {images && images.length ? (
           <div className="add_pics_inside1 extra_styling">
             <div className="inside_with_pics">
@@ -109,6 +110,7 @@ const AddImages = ({ images, setImages, setShowPrev, setError }) => {
               </div>
               <span>Add Photos/Videos</span>
               <span>or drag and drop</span>
+             
             </div>
           </div>
         )}
